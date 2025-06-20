@@ -1,0 +1,47 @@
+name: IaC Remediation Semi-Autonomous Workflow
+
+on:
+  schedule:
+  - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  remediate-iac-finding:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code repo
+      uses: actions/checkout@v3
+
+    - name: Authenticate to Google Cloud using a service account
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+    - name: Install Google Cloud SDK cli tools
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        version: 'latest'
+        install_components: 'alpha'
+
+    - name: Set up Terraform binary
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: ${{ vars.TERRAFORM_VERSION }}
+
+    - name: Write gitconfig settings file
+      run: |
+        echo "remote: ${{ vars.GIT_REMOTE }}" > ${{ github.workspace }}/gitconfig.yaml
+        echo "main-branch-name: ${{ vars.GIT_MAIN_BRANCH_NAME }}" >> ${{ github.workspace }}/gitconfig.yaml
+        echo "branch-prefix: ${{ vars.GIT_BRANCH_PREFIX }}" >> ${{ github.workspace }}/gitconfig.yaml
+        echo "reviewers: ${{ vars.PR_REVIEWERS }}" >> ${{ github.workspace }}/gitconfig.yaml
+
+    - name: Configure Git environment global variables
+      run: |
+        git config --global user.name "${{ vars.GIT_USERNAME }}"
+        git config --global user.email "${{ vars.GIT_EMAIL }}"
+
+    - name: Run the gcloud command
+      run: gcloud alpha scc remediation-intents auto-remediate --org-id=${{ vars.ORGANIZATION_ID }} --root-dir-path=${{ vars.ROOT_DIRECTORY_PATH }} --git-config-path=${{ github.workspace }}/gitconfig.yaml
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
