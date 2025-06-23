@@ -75,3 +75,21 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM changes for project: my-project-tp-412202
+resource "google_project_iam_member_remove" "remove_securitycenter_admin_viewer_for_tiruveedhulap" {
+  project = "my-project-tp-412202"
+  role    = "roles/securitycenter.adminViewer"
+  member  = "user:tiruveedhulap@google.com"
+}
+
+resource "google_project_iam_member" "add_pam_project_folder_org_getter_for_tiruveedhulap" {
+  project = "my-project-tp-412202"
+  role    = "organizations/9454078371/roles/pam_project_folder_org_getter"
+  member  = "user:tiruveedhulap@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_securitycenter_admin_for_tiruveedhulap" {
+  project = "my-project-tp-412202"
+  role    = "roles/securitycenter.admin"
+  member  = "user:tiruveedhulap@google.com"
+}
