@@ -75,3 +75,21 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Bindings for REMOVE actions
+resource "google_project_iam_member_remove" "remove_editor_182820643710_sa" {
+  project = data.google_project.current.project_id
+  role    = "roles/editor"
+  member  = "serviceAccount:182820643710-compute@developer.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_bigquery_user_billing_group" {
+  project = data.google_project.current.project_id
+  role    = "roles/bigquery.user"
+  member  = "group:billing@gcpsecurityblrtest.joonix.net"
+}
+
+resource "google_project_iam_member_remove" "remove_bigquery_dataviewer_billing_group" {
+  project = data.google_project.current.project_id
+  role    = "roles/bigquery.dataViewer"
+  member  = "group:billing@gcpsecurityblrtest.joonix.net"
+}
