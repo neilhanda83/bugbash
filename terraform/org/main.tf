@@ -75,3 +75,15 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding changes for project "prd-reports-pipeline"
+resource "google_project_iam_member_remove" "remove_owner_bob_rhodes" {
+  project = "prd-reports-pipeline"
+  role    = "roles/owner"
+  member  = "user:BobRhodes345@gmail.com"
+}
+
+resource "google_project_iam_member" "add_custom_role_bob_rhodes" {
+  project = "prd-reports-pipeline"
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:BobRhodes345@gmail.com"
+}
