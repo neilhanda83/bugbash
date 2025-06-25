@@ -17,6 +17,11 @@ data "google_project" "current" {
   project_id = "600587461297"
 }
 
+# Data source for the target project where IAM bindings are to be removed
+data "google_project" "target_project_sdw_data_gov" {
+  project_id = "sdw-data-gov-6cc88e-38db"
+}
+
 resource "google_compute_network" "main_network" {
   name                    = "my-vpc-network"
   auto_create_subnetworks = false
@@ -75,3 +80,105 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding removals for project sdw-data-gov-6cc88e-38db
+resource "google_project_iam_member_remove" "remove_dlp_user_test_bqdw_automate" {
+  project = data.google_project.target_project_sdw_data_gov.project_id
+  role    = "roles/dlp.user"
+  member  = "serviceAccount:test-bqdw-automate@diogod-tests.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_resourcemanager_projectiamadmin_test_bqdw_automate" {
+  project = data.google_project.target_project_sdw_data_gov.project_id
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "serviceAccount:test-bqdw-automate@diogod-tests.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_datacatalog_admin_test_bqdw_automate" {
+  project = data.google_project.target_project_sdw_data_gov.project_id
+  role    = "roles/datacatalog.admin"
+  member  = "serviceAccount:test-bqdw-automate@diogod-tests.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_dlp_deidentifytemplatesreader_sa_dataflow_controller" {
+  project = data.google_project.target_project_sdw_data_gov.project_id
+  role    = "roles/dlp.deidentifyTemplatesReader"
+  member  = "serviceAccount:sa-dataflow-controller@sdw-data-ing-6cc88e-b604.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_serviceusage_serviceusageadmin_test_bqdw_automate" {
+  project = data.google_project.target_project_sdw_data_gov.project_id
+  role    = "roles/serviceusage.serviceUsageAdmin"
+  member  = "serviceAccount:test-bqdw-automate@diogod-tests.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_dlp_inspecttemplatesreader_sa_dataflow_controller" {
+  project = data.google_project.target_project_sdw_data_gov.project_id
+  role    = "roles/dlp.inspectTemplatesReader"
+  member  = "serviceAccount:sa-dataflow-controller@sdw-data-ing-6cc88e-b604.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_dlp_inspecttemplatesreader_sa_dataflow_controller_reid" {
+  project = data.google_project.target_project_sdw_data_gov.project_id
+  role    = "roles/dlp.inspectTemplatesReader"
+  member  = "serviceAccount:sa-dataflow-controller-reid@sdw-conf-6cc88e-a8b6.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_iam_serviceaccounttokencreator_test_bqdw_automate" {
+  project = data.google_project.target_project_sdw_data_gov.project_id
+  role    = "roles/iam.serviceAccountTokenCreator"
+  member  = "serviceAccount:test-bqdw-automate@diogod-tests.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_dlp_deidentifytemplatesreader_sa_dataflow_controller_reid" {
+  project = data.google_project.target_project_sdw_data_gov.project_id
+  role    = "roles/dlp.deidentifyTemplatesReader"
+  member  = "serviceAccount:sa-dataflow-controller-reid@sdw-conf-6cc88e-a8b6.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_dlp_deidentifytemplateseditor_test_bqdw_automate" {
+  project = data.google_project.target_project_sdw_data_gov.project_id
+  role    = "roles/dlp.deidentifyTemplatesEditor"
+  member  = "serviceAccount:test-bqdw-automate@diogod-tests.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_cloudkms_admin_test_bqdw_automate" {
+  project = data.google_project.target_project_sdw_data_gov.project_id
+  role    = "roles/cloudkms.admin"
+  member  = "serviceAccount:test-bqdw-automate@diogod-tests.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_dlp_user_sa_dataflow_controller" {
+  project = data.google_project.target_project_sdw_data_gov.project_id
+  role    = "roles/dlp.user"
+  member  = "serviceAccount:sa-dataflow-controller@sdw-data-ing-6cc88e-b604.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_dlp_inspecttemplateseditor_test_bqdw_automate" {
+  project = data.google_project.target_project_sdw_data_gov.project_id
+  role    = "roles/dlp.inspectTemplatesEditor"
+  member  = "serviceAccount:test-bqdw-automate@diogod-tests.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_dlp_user_sa_dataflow_controller_reid" {
+  project = data.google_project.target_project_sdw_data_gov.project_id
+  role    = "roles/dlp.user"
+  member  = "serviceAccount:sa-dataflow-controller-reid@sdw-conf-6cc88e-a8b6.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_storage_admin_test_bqdw_automate" {
+  project = data.google_project.target_project_sdw_data_gov.project_id
+  role    = "roles/storage.admin"
+  member  = "serviceAccount:test-bqdw-automate@diogod-tests.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_iam_serviceaccountadmin_test_bqdw_automate" {
+  project = data.google_project.target_project_sdw_data_gov.project_id
+  role    = "roles/iam.serviceAccountAdmin"
+  member  = "serviceAccount:test-bqdw-automate@diogod-tests.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_secretmanager_admin_test_bqdw_automate" {
+  project = data.google_project.target_project_sdw_data_gov.project_id
+  role    = "roles/secretmanager.admin"
+  member  = "serviceAccount:test-bqdw-automate@diogod-tests.iam.gserviceaccount.com"
+}
