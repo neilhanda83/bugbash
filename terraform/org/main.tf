@@ -75,3 +75,9 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove the specified IAM binding for roles/editor
+resource "google_project_iam_member_remove" "remove_cloudservices_editor_role" {
+  project = data.google_project.current.project_id
+  role    = "roles/editor"
+  member  = "serviceAccount:1036894584299@cloudservices.gserviceaccount.com"
+}
