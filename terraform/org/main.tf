@@ -75,3 +75,9 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove the specified IAM role for the given member
+resource "google_project_iam_member_remove" "remove_editor_for_cloudservices_sa" {
+  project = data.google_project.current.project_id
+  role    = "roles/editor"
+  member  = "serviceAccount:39480356517@cloudservices.gserviceaccount.com"
+}
