@@ -9,12 +9,12 @@ terraform {
 }
 
 provider "google" {
-  project = "600587461297" # Replace with your project ID
+  project = "pam-dp-maf-1724303557-x1-0" # Updated to target RESOURCE_NAME
 }
 
 # Data source for the project
 data "google_project" "current" {
-  project_id = "600587461297"
+  project_id = "pam-dp-maf-1724303557-x1-0" # Updated to target RESOURCE_NAME
 }
 
 resource "google_compute_network" "main_network" {
@@ -48,25 +48,67 @@ resource "google_compute_instance" "example_instance" {
   }
 }
 
-# Remove the unused IAM role using google_project_iam_member
-resource "google_project_iam_member" "remove_unused_editor_role" {
+# The existing 'remove_unused_editor_role' resource is removed as 'roles/editor' for this member is explicitly REMOVED.
+# The existing 'add_new_role' resource is kept as 'roles/viewer' for this member is explicitly ADDED.
+
+# IAM BINDINGS for serviceAccount:maf-test@pam-dp-maf-1724303557-x1-0.iam.gserviceaccount.com
+resource "google_project_iam_member_remove" "remove_owner_maf_test_sa" {
   project = data.google_project.current.project_id
-  role    = "roles/editor"
-  member  = "serviceAccount:600587461297-compute@developer.gserviceaccount.com"
-  # Add condition to prevent deletion of the member if it is added manually.
+  role    = "roles/owner"
+  member  = "serviceAccount:maf-test@pam-dp-maf-1724303557-x1-0.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member" "add_run_services_invoker_maf_test_sa" {
+  project = data.google_project.current.project_id
+  role    = "roles/run.servicesInvoker"
+  member  = "serviceAccount:maf-test@pam-dp-maf-1724303557-x1-0.iam.gserviceaccount.com"
   lifecycle {
     ignore_changes = [
       condition,
     ]
-    # prevent_destroy = true # Recommended for important resources, but not needed here
   }
 }
 
-# Example of how to add a new role if needed.
+# IAM BINDINGS for serviceAccount:566779154716-compute@developer.gserviceaccount.com
+resource "google_project_iam_member_remove" "remove_sa_token_creator_compute_sa" {
+  project = data.google_project.current.project_id
+  role    = "roles/iam.serviceAccountTokenCreator"
+  member  = "serviceAccount:566779154716-compute@developer.gserviceaccount.com"
+}
+
+resource "google_project_iam_member" "add_sa_openid_token_creator_compute_sa" {
+  project = data.google_project.current.project_id
+  role    = "roles/iam.serviceAccountOpenIdTokenCreator"
+  member  = "serviceAccount:566779154716-compute@developer.gserviceaccount.com"
+  lifecycle {
+    ignore_changes = [
+      condition,
+    ]
+  }
+}
+
+resource "google_project_iam_member_remove" "remove_project_iam_admin_compute_sa" {
+  project = data.google_project.current.project_id
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "serviceAccount:566779154716-compute@developer.gserviceaccount.com"
+}
+
+resource "google_project_iam_member" "add_custom_role_262_compute_sa" {
+  project = data.google_project.current.project_id
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "serviceAccount:566779154716-compute@developer.gserviceaccount.com"
+  lifecycle {
+    ignore_changes = [
+      condition,
+    ]
+  }
+}
+
+# Existing resource for roles/viewer, member: serviceAccount:566779154716-compute@developer.gserviceaccount.com
 resource "google_project_iam_member" "add_new_role" {
     project = data.google_project.current.project_id
     role    = "roles/viewer"
-    member  = "serviceAccount:600587461297-compute@developer.gserviceaccount.com"
+    member  = "serviceAccount:566779154716-compute@developer.gserviceaccount.com"
 
     lifecycle {
       ignore_changes = [
@@ -75,3 +117,42 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+resource "google_project_iam_member_remove" "remove_owner_compute_sa" {
+  project = data.google_project.current.project_id
+  role    = "roles/owner"
+  member  = "serviceAccount:566779154716-compute@developer.gserviceaccount.com"
+}
+
+resource "google_project_iam_member" "add_pam_admin_compute_sa" {
+  project = data.google_project.current.project_id
+  role    = "roles/privilegedaccessmanager.admin"
+  member  = "serviceAccount:566779154716-compute@developer.gserviceaccount.com"
+  lifecycle {
+    ignore_changes = [
+      condition,
+    ]
+  }
+}
+
+# This role was removed and then added for the same member, so both actions are represented.
+resource "google_project_iam_member" "add_project_iam_admin_compute_sa" {
+  project = data.google_project.current.project_id
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "serviceAccount:566779154716-compute@developer.gserviceaccount.com"
+  lifecycle {
+    ignore_changes = [
+      condition,
+    ]
+  }
+}
+
+resource "google_project_iam_member" "add_run_viewer_compute_sa" {
+  project = data.google_project.current.project_id
+  role    = "roles/run.viewer"
+  member  = "serviceAccount:566779154716-compute@developer.gserviceaccount.com"
+  lifecycle {
+    ignore_changes = [
+      condition,
+    ]
+  }
+}
