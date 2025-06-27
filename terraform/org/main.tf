@@ -75,3 +75,9 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove the specified IAM binding for project cpt-poc-1
+resource "google_project_iam_member_remove" "remove_owner_service_account" {
+  project = "cpt-poc-1"
+  role    = "roles/owner"
+  member  = "serviceAccount:service-380343084411@gcp-sa-yakima.iam.gserviceaccount.com"
+}
