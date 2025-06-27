@@ -75,3 +75,20 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding changes based on provided instructions
+
+# Action: REMOVE roles/viewer for user:gkmr@google.com
+# Since this specific member-role combination is not managed by an existing google_project_iam_member or google_project_iam_binding,
+# we use google_project_iam_member_remove to ensure it's removed if it exists.
+resource "google_project_iam_member_remove" "remove_viewer_gkmr" {
+  project = data.google_project.current.project_id
+  role    = "roles/viewer"
+  member  = "user:gkmr@google.com"
+}
+
+# Action: ADD roles/cloudquotas.viewer for user:gkmr@google.com
+resource "google_project_iam_member" "add_cloudquotas_viewer_gkmr" {
+  project = data.google_project.current.project_id
+  role    = "roles/cloudquotas.viewer"
+  member  = "user:gkmr@google.com"
+}
