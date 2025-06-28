@@ -75,3 +75,15 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM changes for project scc-internal
+resource "google_project_iam_member_remove" "remove_designcenter_admin_for_varun" {
+  project = "scc-internal"
+  role    = "roles/designcenter.admin"
+  member  = "user:varunbhardwaj@google.com"
+}
+
+resource "google_project_iam_member" "add_storage_object_viewer_for_varun" {
+  project = "scc-internal"
+  role    = "roles/storage.objectViewer"
+  member  = "user:varunbhardwaj@google.com"
+}
