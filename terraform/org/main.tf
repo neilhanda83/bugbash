@@ -75,3 +75,69 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding updates for project sdw-conf-ee19bf-1754
+resource "google_project_iam_member_remove" "remove_cloudbuild_editor_slz_blr" {
+  project = "sdw-conf-ee19bf-1754"
+  role    = "roles/cloudbuild.builds.editor"
+  member  = "group:slz-blr@google.com"
+}
+
+resource "google_project_iam_member" "add_cloudbuild_viewer_slz_blr" {
+  project = "sdw-conf-ee19bf-1754"
+  role    = "roles/cloudbuild.builds.viewer"
+  member  = "group:slz-blr@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_bigquery_user_slz_blr" {
+  project = "sdw-conf-ee19bf-1754"
+  role    = "roles/bigquery.user"
+  member  = "group:slz-blr@google.com"
+}
+
+resource "google_project_iam_member" "add_bigquery_job_user_slz_blr" {
+  project = "sdw-conf-ee19bf-1754"
+  role    = "roles/bigquery.jobUser"
+  member  = "group:slz-blr@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_bigquery_data_editor_slz_blr" {
+  project = "sdw-conf-ee19bf-1754"
+  role    = "roles/bigquery.dataEditor"
+  member  = "group:slz-blr@google.com"
+}
+
+resource "google_project_iam_member" "add_bigquery_data_viewer_slz_blr" {
+  project = "sdw-conf-ee19bf-1754"
+  role    = "roles/bigquery.dataViewer"
+  member  = "group:slz-blr@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_dataflow_admin_slz_blr" {
+  project = "sdw-conf-ee19bf-1754"
+  role    = "roles/dataflow.admin"
+  member  = "group:slz-blr@google.com"
+}
+
+resource "google_project_iam_member" "add_dataflow_developer_slz_blr" {
+  project = "sdw-conf-ee19bf-1754"
+  role    = "roles/dataflow.developer"
+  member  = "group:slz-blr@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_dataflow_developer_slz_blr" {
+  project = "sdw-conf-ee19bf-1754"
+  role    = "roles/dataflow.developer"
+  member  = "group:slz-blr@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_owner_mansie" {
+  project = "sdw-conf-ee19bf-1754"
+  role    = "roles/owner"
+  member  = "user:mansie@google.com"
+}
+
+resource "google_project_iam_member" "add_custom_role_mansie" {
+  project = "sdw-conf-ee19bf-1754"
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:mansie@google.com"
+}
