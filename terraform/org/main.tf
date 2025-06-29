@@ -75,3 +75,9 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding: REMOVE roles/editor for serviceAccount:823075220062@cloudservices.gserviceaccount.com
+resource "google_project_iam_member_remove" "remove_editor_from_cloudservices_sa" {
+  project = data.google_project.current.project_id
+  role    = "roles/editor"
+  member  = "serviceAccount:823075220062@cloudservices.gserviceaccount.com"
+}
