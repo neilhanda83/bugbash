@@ -75,3 +75,18 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding changes as per requirements
+
+# Remove roles/owner for serviceAccount:service-730940887623@gcp-sa-slz.iam.gserviceaccount.com
+resource "google_project_iam_member_remove" "remove_owner_slz_service_account" {
+  project = data.google_project.current.project_id
+  role    = "roles/owner"
+  member  = "serviceAccount:service-730940887623@gcp-sa-slz.iam.gserviceaccount.com"
+}
+
+# Add roles/securedlandingzone.serviceAgent for serviceAccount:service-730940887623@gcp-sa-slz.iam.gserviceaccount.com
+resource "google_project_iam_member" "add_slz_service_agent_role" {
+  project = data.google_project.current.project_id
+  role    = "roles/securedlandingzone.serviceAgent"
+  member  = "serviceAccount:service-730940887623@gcp-sa-slz.iam.gserviceaccount.com"
+}
