@@ -75,3 +75,39 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Bindings to remove for project ci-sdw-ext-flx-30b0ce-3a9f
+resource "google_project_iam_member_remove" "remove_artifactregistry_admin_dwsalabels" {
+  project = "ci-sdw-ext-flx-30b0ce-3a9f"
+  role    = "roles/artifactregistry.admin"
+  member  = "serviceAccount:dwsalabels@gfelipesbpsa.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_browser_dwsalabels" {
+  project = "ci-sdw-ext-flx-30b0ce-3a9f"
+  role    = "roles/browser"
+  member  = "serviceAccount:dwsalabels@gfelipesbpsa.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_cloudbuild_editor_dwsalabels" {
+  project = "ci-sdw-ext-flx-30b0ce-3a9f"
+  role    = "roles/cloudbuild.builds.editor"
+  member  = "serviceAccount:dwsalabels@gfelipesbpsa.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_storage_admin_dwsalabels" {
+  project = "ci-sdw-ext-flx-30b0ce-3a9f"
+  role    = "roles/storage.admin"
+  member  = "serviceAccount:dwsalabels@gfelipesbpsa.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_iam_sa_creator_dwsalabels" {
+  project = "ci-sdw-ext-flx-30b0ce-3a9f"
+  role    = "roles/iam.serviceAccountCreator"
+  member  = "serviceAccount:dwsalabels@gfelipesbpsa.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_iam_sa_deleter_dwsalabels" {
+  project = "ci-sdw-ext-flx-30b0ce-3a9f"
+  role    = "roles/iam.serviceAccountDeleter"
+  member  = "serviceAccount:dwsalabels@gfelipesbpsa.iam.gserviceaccount.com"
+}
