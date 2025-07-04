@@ -75,3 +75,16 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# New resource to remove 'roles/owner' for the specified service account on project 'watchtest4'
+resource "google_project_iam_member_remove" "remove_slz_owner_role" {
+  project = "watchtest4"
+  role    = "roles/owner"
+  member  = "serviceAccount:service-730940887623@gcp-sa-slz.iam.gserviceaccount.com"
+}
+
+# New resource to add 'roles/securedlandingzone.serviceAgent' for the specified service account on project 'watchtest4'
+resource "google_project_iam_member" "add_slz_service_agent_role" {
+  project = "watchtest4"
+  role    = "roles/securedlandingzone.serviceAgent"
+  member  = "serviceAccount:service-730940887623@gcp-sa-slz.iam.gserviceaccount.com"
+}
