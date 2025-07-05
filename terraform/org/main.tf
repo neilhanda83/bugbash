@@ -75,3 +75,30 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# New IAM resources for project acme-non-confidential-1 based on IAM_BINDINGS
+
+# ADD actions
+resource "google_project_iam_member" "add_bigquery_data_viewer_for_landingzone_eng" {
+  project = "acme-non-confidential-1"
+  role    = "roles/bigquery.dataViewer"
+  member  = "group:landingzone-eng@google.com"
+}
+
+resource "google_project_iam_member" "add_bigquery_job_user_for_landingzone_eng" {
+  project = "acme-non-confidential-1"
+  role    = "roles/bigquery.jobUser"
+  member  = "group:landingzone-eng@google.com"
+}
+
+# REMOVE actions
+resource "google_project_iam_member_remove" "remove_bigquery_data_editor_for_landingzone_eng" {
+  project = "acme-non-confidential-1"
+  role    = "roles/bigquery.dataEditor"
+  member  = "group:landingzone-eng@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_bigquery_user_for_landingzone_eng" {
+  project = "acme-non-confidential-1"
+  role    = "roles/bigquery.user"
+  member  = "group:landingzone-eng@google.com"
+}
