@@ -9,12 +9,12 @@ terraform {
 }
 
 provider "google" {
-  project = "600587461297" # Replace with your project ID
+  project = "acme-non-confidential-1" # Updated to the target project ID
 }
 
 # Data source for the project
 data "google_project" "current" {
-  project_id = "600587461297"
+  project_id = "acme-non-confidential-1" # Updated to the target project ID
 }
 
 resource "google_compute_network" "main_network" {
@@ -75,3 +75,32 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM BINDINGS UPDATES FOR group:landingzone-eng@google.com ON PROJECT acme-non-confidential-1
+
+# REMOVE roles/bigquery.dataEditor
+resource "google_project_iam_member_remove" "remove_bigquery_data_editor_for_landingzone_eng" {
+  project = data.google_project.current.project_id
+  role    = "roles/bigquery.dataEditor"
+  member  = "group:landingzone-eng@google.com"
+}
+
+# ADD roles/bigquery.dataViewer
+resource "google_project_iam_member" "add_bigquery_data_viewer_for_landingzone_eng" {
+  project = data.google_project.current.project_id
+  role    = "roles/bigquery.dataViewer"
+  member  = "group:landingzone-eng@google.com"
+}
+
+# REMOVE roles/bigquery.user
+resource "google_project_iam_member_remove" "remove_bigquery_user_for_landingzone_eng" {
+  project = data.google_project.current.project_id
+  role    = "roles/bigquery.user"
+  member  = "group:landingzone-eng@google.com"
+}
+
+# ADD roles/bigquery.jobUser
+resource "google_project_iam_member" "add_bigquery_job_user_for_landingzone_eng" {
+  project = data.google_project.current.project_id
+  role    = "roles/bigquery.jobUser"
+  member  = "group:landingzone-eng@google.com"
+}
