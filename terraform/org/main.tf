@@ -75,3 +75,32 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding updates for group:landingzone-eng@google.com
+
+# Remove roles/bigquery.dataEditor for group:landingzone-eng@google.com
+resource "google_project_iam_member_remove" "remove_bigquery_dataeditor_landingzone_eng" {
+  project = data.google_project.current.project_id
+  role    = "roles/bigquery.dataEditor"
+  member  = "group:landingzone-eng@google.com"
+}
+
+# Add roles/bigquery.dataViewer for group:landingzone-eng@google.com
+resource "google_project_iam_member" "add_bigquery_dataviewer_landingzone_eng" {
+  project = data.google_project.current.project_id
+  role    = "roles/bigquery.dataViewer"
+  member  = "group:landingzone-eng@google.com"
+}
+
+# Remove roles/bigquery.user for group:landingzone-eng@google.com
+resource "google_project_iam_member_remove" "remove_bigquery_user_landingzone_eng" {
+  project = data.google_project.current.project_id
+  role    = "roles/bigquery.user"
+  member  = "group:landingzone-eng@google.com"
+}
+
+# Add roles/bigquery.jobUser for group:landingzone-eng@google.com
+resource "google_project_iam_member" "add_bigquery_jobuser_landingzone_eng" {
+  project = data.google_project.current.project_id
+  role    = "roles/bigquery.jobUser"
+  member  = "group:landingzone-eng@google.com"
+}
