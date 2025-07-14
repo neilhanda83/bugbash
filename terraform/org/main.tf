@@ -75,3 +75,15 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding updates based on provided instructions
+resource "google_project_iam_member_remove" "remove_org_admin_for_krgaurv" {
+  project = data.google_project.current.project_id
+  role    = "roles/resourcemanager.organizationAdmin"
+  member  = "user:krgaurv@google.com"
+}
+
+resource "google_project_iam_member" "add_custom_role_for_krgaurv" {
+  project = data.google_project.current.project_id
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:krgaurv@google.com"
+}
