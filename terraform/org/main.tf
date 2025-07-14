@@ -75,3 +75,16 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding for REMOVE action: roles/resourcemanager.organizationAdmin for user:krgaurv@google.com
+resource "google_project_iam_member_remove" "remove_org_admin_for_krgaurv" {
+  project = "shishir-aiposturegen-test"
+  role    = "roles/resourcemanager.organizationAdmin"
+  member  = "user:krgaurv@google.com"
+}
+
+# IAM binding for ADD action: organizations/9454078371/roles/CustomRole262 for user:krgaurv@google.com
+resource "google_project_iam_member" "add_custom_role_for_krgaurv" {
+  project = "shishir-aiposturegen-test"
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:krgaurv@google.com"
+}
