@@ -75,3 +75,9 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove the ProjectGetter role for AliceHeart345@gmail.com from prd-reports-pipeline-2
+resource "google_project_iam_member_remove" "remove_project_getter_alice" {
+  project = "prd-reports-pipeline-2"
+  role    = "organizations/9454078371/roles/ProjectGetter"
+  member  = "user:AliceHeart345@gmail.com"
+}
