@@ -75,3 +75,15 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding to remove 'user:AliceHeart345@gmail.com' from the organization-level role 'organizations/9454078371/roles/ProjectGetter'.
+# Since there is no 'google_organization_iam_member_remove' resource,
+# the 'google_organization_iam_binding' resource is used to authoritatively manage
+# the members for this role. By not including 'user:AliceHeart345@gmail.com'
+# in the 'members' list, Terraform will ensure this member is removed from the role.
+# Note: This resource will manage ALL members for this role. If other members
+# should remain, they must be explicitly listed in the 'members' array.
+resource "google_organization_iam_binding" "organization_iam_binding_project_getter" {
+  org_id  = "9454078371"
+  role    = "organizations/9454078371/roles/ProjectGetter"
+  members = [] # Ensure AliceHeart345@gmail.com is not in this list.
+}
