@@ -2,7 +2,7 @@
 terraform {
   required_providers {
     google = {
-      source  = "hashicorp/google"
+      source   = "hashicorp/google"
       version = "~> 5.0"  # Use a recent version
     }
   }
@@ -75,3 +75,9 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove the specified IAM binding for serviceUsage.serviceUsageConsumer
+resource "google_project_iam_member_remove" "remove_service_usage_consumer_for_overwatch" {
+  project = data.google_project.current.project_id
+  role    = "roles/serviceusage.serviceUsageConsumer"
+  member  = "serviceAccount:overwatch-playbooks@akieras-ip.iam.gserviceaccount.com"
+}
