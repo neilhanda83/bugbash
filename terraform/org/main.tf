@@ -75,3 +75,32 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Bindings for project e2e-rego-posture-staging
+
+# REMOVE roles/cloudasset.owner for serviceAccount:securityposture-clh-qual-jobs@system.gserviceaccount.com
+resource "google_project_iam_member_remove" "remove_cloudasset_owner_for_securityposture_sa" {
+  project = "e2e-rego-posture-staging"
+  role    = "roles/cloudasset.owner"
+  member  = "serviceAccount:securityposture-clh-qual-jobs@system.gserviceaccount.com"
+}
+
+# ADD organizations/9454078371/roles/cloud_assets_feeds for serviceAccount:securityposture-clh-qual-jobs@system.gserviceaccount.com
+resource "google_project_iam_member" "add_cloud_assets_feeds_for_securityposture_sa" {
+  project = "e2e-rego-posture-staging"
+  role    = "organizations/9454078371/roles/cloud_assets_feeds"
+  member  = "serviceAccount:securityposture-clh-qual-jobs@system.gserviceaccount.com"
+}
+
+# REMOVE roles/securitycentermanagement.customModulesViewer for user:securityposture-clh-qual-jobs@prod.google.com
+resource "google_project_iam_member_remove" "remove_custom_modules_viewer_for_securityposture_user" {
+  project = "e2e-rego-posture-staging"
+  role    = "roles/securitycentermanagement.customModulesViewer"
+  member  = "user:securityposture-clh-qual-jobs@prod.google.com"
+}
+
+# ADD roles/securitycentermanagement.shaCustomModulesViewer for user:securityposture-clh-qual-jobs@prod.google.com
+resource "google_project_iam_member" "add_sha_custom_modules_viewer_for_securityposture_user" {
+  project = "e2e-rego-posture-staging"
+  role    = "roles/securitycentermanagement.shaCustomModulesViewer"
+  member  = "user:securityposture-clh-qual-jobs@prod.google.com"
+}
