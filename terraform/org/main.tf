@@ -75,3 +75,15 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove roles as per IAM_BINDINGS
+resource "google_project_iam_member_remove" "remove_servicemanagement_admin_for_adeepanshu" {
+  project = data.google_project.current.project_id
+  role    = "roles/servicemanagement.admin"
+  member  = "user:adeepanshu@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_serviceusage_consumer_for_adeepanshu" {
+  project = data.google_project.current.project_id
+  role    = "roles/serviceusage.serviceUsageConsumer"
+  member  = "user:adeepanshu@google.com"
+}
