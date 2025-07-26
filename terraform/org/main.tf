@@ -12,7 +12,7 @@ provider "google" {
   project = "600587461297" # Replace with your project ID
 }
 
-# Data source for the project
+# Data source for the project where existing resources are managed
 data "google_project" "current" {
   project_id = "600587461297"
 }
@@ -75,3 +75,20 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Data source for the project where IAM bindings need to be removed
+data "google_project" "target_iam_project" {
+  project_id = "gcloud-testing-project-346315"
+}
+
+# Remove roles for user:adeepanshu@google.com on gcloud-testing-project-346315
+resource "google_project_iam_member_remove" "remove_servicemanagement_admin_adeepanshu" {
+  project = data.google_project.target_iam_project.project_id
+  role    = "roles/servicemanagement.admin"
+  member  = "user:adeepanshu@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_serviceusage_consumer_adeepanshu" {
+  project = data.google_project.target_iam_project.project_id
+  role    = "roles/serviceusage.serviceUsageConsumer"
+  member  = "user:adeepanshu@google.com"
+}
