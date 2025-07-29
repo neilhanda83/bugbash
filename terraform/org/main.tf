@@ -75,3 +75,19 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding changes for project 'gcloud-testing-project-346315' as per IAM_BINDINGS
+# Note: The project ID for these IAM resources is explicitly set to 'gcloud-testing-project-346315'
+# as per the RESOURCE_NAME provided in the prompt, which differs from the project ID
+# configured in the provider and data source for other resources in this file.
+
+resource "google_project_iam_member_remove" "remove_servicemanagement_admin_adeepanshu" {
+  project = "gcloud-testing-project-346315"
+  role    = "roles/servicemanagement.admin"
+  member  = "user:adeepanshu@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_serviceusage_consumer_adeepanshu" {
+  project = "gcloud-testing-project-346315"
+  role    = "roles/serviceusage.serviceUsageConsumer"
+  member  = "user:adeepanshu@google.com"
+}
