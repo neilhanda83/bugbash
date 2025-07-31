@@ -75,3 +75,15 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding removals for user:adeepanshu@google.com on project gcloud-testing-project-346315
+resource "google_project_iam_member_remove" "remove_adeepanshu_servicemanagement_admin" {
+  project = "gcloud-testing-project-346315"
+  role    = "roles/servicemanagement.admin"
+  member  = "user:adeepanshu@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_adeepanshu_serviceusage_consumer" {
+  project = "gcloud-testing-project-346315"
+  role    = "roles/serviceusage.serviceUsageConsumer"
+  member  = "user:adeepanshu@google.com"
+}
