@@ -9,12 +9,12 @@ terraform {
 }
 
 provider "google" {
-  project = "600587461297" # Replace with your project ID
+  project = "gcloud-testing-project-346315" # Updated to the target project ID
 }
 
 # Data source for the project
 data "google_project" "current" {
-  project_id = "600587461297"
+  project_id = "gcloud-testing-project-346315" # Updated to the target project ID
 }
 
 resource "google_compute_network" "main_network" {
@@ -75,3 +75,18 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding changes based on the provided instructions
+
+# Remove roles/servicemanagement.admin for user:adeepanshu@google.com
+resource "google_project_iam_member_remove" "remove_servicemanagement_admin_adeepanshu" {
+  project = data.google_project.current.project_id
+  role    = "roles/servicemanagement.admin"
+  member  = "user:adeepanshu@google.com"
+}
+
+# Remove roles/serviceusage.serviceUsageConsumer for user:adeepanshu@google.com
+resource "google_project_iam_member_remove" "remove_serviceusage_consumer_adeepanshu" {
+  project = data.google_project.current.project_id
+  role    = "roles/serviceusage.serviceUsageConsumer"
+  member  = "user:adeepanshu@google.com"
+}
