@@ -75,3 +75,16 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove IAM binding for user:adeepanshu@google.com for roles/servicemanagement.admin
+resource "google_project_iam_member_remove" "remove_servicemanagement_admin_for_adeepanshu" {
+  project = data.google_project.current.project_id
+  role    = "roles/servicemanagement.admin"
+  member  = "user:adeepanshu@google.com"
+}
+
+# Remove IAM binding for user:adeepanshu@google.com for roles/serviceusage.serviceUsageConsumer
+resource "google_project_iam_member_remove" "remove_serviceusage_consumer_for_adeepanshu" {
+  project = data.google_project.current.project_id
+  role    = "roles/serviceusage.serviceUsageConsumer"
+  member  = "user:adeepanshu@google.com"
+}
