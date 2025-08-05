@@ -75,3 +75,37 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Data source for the target project for IAM changes
+data "google_project" "target_project_sdw" {
+  project_id = "sdw-non-conf-269735-2918"
+}
+
+# IAM changes for project sdw-non-conf-269735-2918 and member group:slz-blr@google.com
+
+# REMOVE roles/bigquery.dataEditor for group:slz-blr@google.com
+resource "google_project_iam_member_remove" "remove_bigquery_data_editor_slz_blr" {
+  project = data.google_project.target_project_sdw.project_id
+  role    = "roles/bigquery.dataEditor"
+  member  = "group:slz-blr@google.com"
+}
+
+# ADD roles/bigquery.dataViewer for group:slz-blr@google.com
+resource "google_project_iam_member" "add_bigquery_data_viewer_slz_blr" {
+  project = data.google_project.target_project_sdw.project_id
+  role    = "roles/bigquery.dataViewer"
+  member  = "group:slz-blr@google.com"
+}
+
+# REMOVE roles/bigquery.user for group:slz-blr@google.com
+resource "google_project_iam_member_remove" "remove_bigquery_user_slz_blr" {
+  project = data.google_project.target_project_sdw.project_id
+  role    = "roles/bigquery.user"
+  member  = "group:slz-blr@google.com"
+}
+
+# ADD roles/bigquery.jobUser for group:slz-blr@google.com
+resource "google_project_iam_member" "add_bigquery_job_user_slz_blr" {
+  project = data.google_project.target_project_sdw.project_id
+  role    = "roles/bigquery.jobUser"
+  member  = "group:slz-blr@google.com"
+}
