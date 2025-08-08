@@ -9,12 +9,12 @@ terraform {
 }
 
 provider "google" {
-  project = "600587461297" # Replace with your project ID
+  project = "sdw-non-conf-269735-2918" # Updated to match RESOURCE_NAME
 }
 
 # Data source for the project
 data "google_project" "current" {
-  project_id = "600587461297"
+  project_id = "sdw-non-conf-269735-2918" # Updated to match RESOURCE_NAME
 }
 
 resource "google_compute_network" "main_network" {
@@ -75,3 +75,32 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM changes based on the provided IAM_BINDINGS for group:slz-blr@google.com
+
+# Action: REMOVE Role: roles/bigquery.dataEditor Member: group:slz-blr@google.com
+resource "google_project_iam_member_remove" "remove_bigquery_dataeditor_slz_blr" {
+  project = data.google_project.current.project_id
+  role    = "roles/bigquery.dataEditor"
+  member  = "group:slz-blr@google.com"
+}
+
+# Action: ADD Role: roles/bigquery.dataViewer Member: group:slz-blr@google.com
+resource "google_project_iam_member" "add_bigquery_dataviewer_slz_blr" {
+  project = data.google_project.current.project_id
+  role    = "roles/bigquery.dataViewer"
+  member  = "group:slz-blr@google.com"
+}
+
+# Action: REMOVE Role: roles/bigquery.user Member: group:slz-blr@google.com
+resource "google_project_iam_member_remove" "remove_bigquery_user_slz_blr" {
+  project = data.google_project.current.project_id
+  role    = "roles/bigquery.user"
+  member  = "group:slz-blr@google.com"
+}
+
+# Action: ADD Role: roles/bigquery.jobUser Member: group:slz-blr@google.com
+resource "google_project_iam_member" "add_bigquery_jobuser_slz_blr" {
+  project = data.google_project.current.project_id
+  role    = "roles/bigquery.jobUser"
+  member  = "group:slz-blr@google.com"
+}
