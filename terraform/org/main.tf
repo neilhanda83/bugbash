@@ -75,3 +75,17 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding changes for project wired-victor-345019
+# Action: REMOVE role: roles/iam.serviceAccountAdmin for member: user:jashanjotkaur@google.com
+resource "google_project_iam_member_remove" "remove_jashanjotkaur_service_account_admin" {
+  project = "wired-victor-345019"
+  role    = "roles/iam.serviceAccountAdmin"
+  member  = "user:jashanjotkaur@google.com"
+}
+
+# Action: ADD role: roles/iam.serviceAccountCreator for member: user:jashanjotkaur@google.com
+resource "google_project_iam_member" "add_jashanjotkaur_service_account_creator" {
+  project = "wired-victor-345019"
+  role    = "roles/iam.serviceAccountCreator"
+  member  = "user:jashanjotkaur@google.com"
+}
