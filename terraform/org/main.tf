@@ -75,3 +75,18 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding changes as per the request
+
+# Remove roles/iam.serviceAccountAdmin for user:jashanjotkaur@google.com
+resource "google_project_iam_member_remove" "remove_iam_service_account_admin_for_jashanjotkaur" {
+  project = data.google_project.current.project_id
+  role    = "roles/iam.serviceAccountAdmin"
+  member  = "user:jashanjotkaur@google.com"
+}
+
+# Add roles/iam.serviceAccountCreator for user:jashanjotkaur@google.com
+resource "google_project_iam_member" "add_iam_service_account_creator_for_jashanjotkaur" {
+  project = data.google_project.current.project_id
+  role    = "roles/iam.serviceAccountCreator"
+  member  = "user:jashanjotkaur@google.com"
+}
