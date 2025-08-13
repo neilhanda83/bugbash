@@ -9,12 +9,12 @@ terraform {
 }
 
 provider "google" {
-  project = "600587461297" # Replace with your project ID
+  project = "rashi-pam-test-2" # Updated to target project
 }
 
 # Data source for the project
 data "google_project" "current" {
-  project_id = "600587461297"
+  project_id = "rashi-pam-test-2" # Updated to target project
 }
 
 resource "google_compute_network" "main_network" {
@@ -75,3 +75,39 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM BINDINGS UPDATES FOR user:ankurdua@google.com
+
+# Action: REMOVE roles/owner
+resource "google_project_iam_member_remove" "remove_owner_ankurdua" {
+  project = data.google_project.current.project_id
+  role    = "roles/owner"
+  member  = "user:ankurdua@google.com"
+}
+
+# Action: ADD roles/firebase.analyticsViewer
+resource "google_project_iam_member" "add_firebase_analytics_viewer_ankurdua" {
+  project = data.google_project.current.project_id
+  role    = "roles/firebase.analyticsViewer"
+  member  = "user:ankurdua@google.com"
+}
+
+# Action: ADD roles/logging.viewer
+resource "google_project_iam_member" "add_logging_viewer_ankurdua" {
+  project = data.google_project.current.project_id
+  role    = "roles/logging.viewer"
+  member  = "user:ankurdua@google.com"
+}
+
+# Action: ADD roles/resourcemanager.projectIamAdmin
+resource "google_project_iam_member" "add_project_iam_admin_ankurdua" {
+  project = data.google_project.current.project_id
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:ankurdua@google.com"
+}
+
+# Action: ADD roles/resourcemanager.projectMover
+resource "google_project_iam_member" "add_project_mover_ankurdua" {
+  project = data.google_project.current.project_id
+  role    = "roles/resourcemanager.projectMover"
+  member  = "user:ankurdua@google.com"
+}
