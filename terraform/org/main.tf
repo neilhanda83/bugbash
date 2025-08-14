@@ -75,3 +75,32 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Bindings for project terraform-294433
+
+# REMOVE roles/viewer for user:adityavverma@google.com
+resource "google_project_iam_member_remove" "remove_adityavverma_viewer_role" {
+  project = "terraform-294433"
+  role    = "roles/viewer"
+  member  = "user:adityavverma@google.com"
+}
+
+# ADD roles/cloudquotas.viewer for user:adityavverma@google.com
+resource "google_project_iam_member" "add_adityavverma_cloudquotas_viewer_role" {
+  project = "terraform-294433"
+  role    = "roles/cloudquotas.viewer"
+  member  = "user:adityavverma@google.com"
+}
+
+# REMOVE roles/owner for user:ankurdua@google.com
+resource "google_project_iam_member_remove" "remove_ankurdua_owner_role" {
+  project = "terraform-294433"
+  role    = "roles/owner"
+  member  = "user:ankurdua@google.com"
+}
+
+# ADD organizations/9454078371/roles/CustomRole262 for user:ankurdua@google.com
+resource "google_project_iam_member" "add_ankurdua_custom_role" {
+  project = "terraform-294433"
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:ankurdua@google.com"
+}
