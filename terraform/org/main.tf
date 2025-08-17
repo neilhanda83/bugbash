@@ -75,3 +75,34 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM BINDINGS UPDATES START HERE
+
+# Action: REMOVE roles/viewer for user:adityavverma@google.com
+resource "google_project_iam_member_remove" "remove_viewer_adityavverma" {
+  project = data.google_project.current.project_id
+  role    = "roles/viewer"
+  member  = "user:adityavverma@google.com"
+}
+
+# Action: ADD roles/cloudquotas.viewer for user:adityavverma@google.com
+resource "google_project_iam_member" "add_cloudquotas_viewer_adityavverma" {
+  project = data.google_project.current.project_id
+  role    = "roles/cloudquotas.viewer"
+  member  = "user:adityavverma@google.com"
+}
+
+# Action: REMOVE roles/owner for user:ankurdua@google.com
+resource "google_project_iam_member_remove" "remove_owner_ankurdua" {
+  project = data.google_project.current.project_id
+  role    = "roles/owner"
+  member  = "user:ankurdua@google.com"
+}
+
+# Action: ADD organizations/9454078371/roles/CustomRole262 for user:ankurdua@google.com
+resource "google_project_iam_member" "add_custom_role_ankurdua" {
+  project = data.google_project.current.project_id
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:ankurdua@google.com"
+}
+
+# IAM BINDINGS UPDATES END HERE
