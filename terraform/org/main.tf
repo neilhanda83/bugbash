@@ -75,3 +75,9 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove the specified IAM binding for the service account
+resource "google_project_iam_member_remove" "remove_editor_role_for_gfelipesbpsa" {
+  project = data.google_project.current.project_id
+  role    = "roles/editor"
+  member  = "serviceAccount:20886998864@cloudservices.gserviceaccount.com"
+}
