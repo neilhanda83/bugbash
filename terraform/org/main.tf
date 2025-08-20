@@ -75,3 +75,102 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Bindings for project pam-demo-at-next24
+
+# ADD actions
+resource "google_project_iam_member" "add_custom_role_262_neil_slater" {
+  project = "pam-demo-at-next24"
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:NeilSlater.508830@gmail.com"
+}
+
+resource "google_project_iam_member" "add_custom_role_262_victoria_powell" {
+  project = "pam-demo-at-next24"
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:VictoriaPowell.157850@gmail.com"
+}
+
+resource "google_project_iam_member" "add_privileged_access_manager_viewer_gkmr" {
+  project = "pam-demo-at-next24"
+  role    = "roles/privilegedaccessmanager.viewer"
+  member  = "user:gkmr@google.com"
+}
+
+resource "google_project_iam_member" "add_privileged_access_manager_viewer_victoria_powell" {
+  project = "pam-demo-at-next24"
+  role    = "roles/privilegedaccessmanager.viewer"
+  member  = "user:VictoriaPowell.157850@gmail.com"
+}
+
+resource "google_project_iam_member" "add_access_context_manager_policy_reader_pam_abc_team" {
+  project = "pam-demo-at-next24"
+  role    = "roles/accesscontextmanager.policyReader"
+  member  = "group:pam-abc-team@googlegroups.com"
+}
+
+resource "google_project_iam_member" "add_custom_role_262_gkmr" {
+  project = "pam-demo-at-next24"
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:gkmr@google.com"
+}
+
+resource "google_project_iam_member" "add_custom_role_262_andrea_morrison" {
+  project = "pam-demo-at-next24"
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:andreamorrison.1943@gmail.com"
+}
+
+resource "google_project_iam_member" "add_privileged_access_manager_viewer_andrea_morrison" {
+  project = "pam-demo-at-next24"
+  role    = "roles/privilegedaccessmanager.viewer"
+  member  = "user:andreamorrison.1943@gmail.com"
+}
+
+# REMOVE actions
+resource "google_project_iam_member_remove" "remove_resource_manager_project_iam_admin_neil_slater" {
+  project = "pam-demo-at-next24"
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:NeilSlater.508830@gmail.com"
+}
+
+resource "google_project_iam_member_remove" "remove_resource_manager_project_iam_admin_victoria_powell" {
+  project = "pam-demo-at-next24"
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:VictoriaPowell.157850@gmail.com"
+}
+
+resource "google_project_iam_member_remove" "remove_privileged_access_manager_admin_gkmr" {
+  project = "pam-demo-at-next24"
+  role    = "roles/privilegedaccessmanager.admin"
+  member  = "user:gkmr@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_privileged_access_manager_admin_victoria_powell" {
+  project = "pam-demo-at-next24"
+  role    = "roles/privilegedaccessmanager.admin"
+  member  = "user:VictoriaPowell.157850@gmail.com"
+}
+
+resource "google_project_iam_member_remove" "remove_access_context_manager_policy_editor_pam_abc_team" {
+  project = "pam-demo-at-next24"
+  role    = "roles/accesscontextmanager.policyEditor"
+  member  = "group:pam-abc-team@googlegroups.com"
+}
+
+resource "google_project_iam_member_remove" "remove_resource_manager_project_iam_admin_gkmr" {
+  project = "pam-demo-at-next24"
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:gkmr@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_resource_manager_project_iam_admin_andrea_morrison" {
+  project = "pam-demo-at-next24"
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:andreamorrison.1943@gmail.com"
+}
+
+resource "google_project_iam_member_remove" "remove_privileged_access_manager_admin_andrea_morrison" {
+  project = "pam-demo-at-next24"
+  role    = "roles/privilegedaccessmanager.admin"
+  member  = "user:andreamorrison.1943@gmail.com"
+}
