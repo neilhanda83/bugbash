@@ -9,12 +9,12 @@ terraform {
 }
 
 provider "google" {
-  project = "600587461297" # Replace with your project ID
+  project = "pam-dp-maf" # Updated to match RESOURCE_NAME
 }
 
 # Data source for the project
 data "google_project" "current" {
-  project_id = "600587461297"
+  project_id = "pam-dp-maf" # Updated to match RESOURCE_NAME
 }
 
 resource "google_compute_network" "main_network" {
@@ -75,3 +75,16 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding: REMOVE roles/compute.networkAdmin for serviceAccount:environmentgate-admin@pam-dp-maf.iam.gserviceaccount.com
+resource "google_project_iam_member_remove" "remove_network_admin_for_environmentgate_admin" {
+  project = data.google_project.current.project_id
+  role    = "roles/compute.networkAdmin"
+  member  = "serviceAccount:environmentgate-admin@pam-dp-maf.iam.gserviceaccount.com"
+}
+
+# IAM Binding: ADD roles/networkconnectivity.regionalEndpointViewer for serviceAccount:environmentgate-admin@pam-dp-maf.iam.gserviceaccount.com
+resource "google_project_iam_member" "add_regional_endpoint_viewer_for_environmentgate_admin" {
+  project = data.google_project.current.project_id
+  role    = "roles/networkconnectivity.regionalEndpointViewer"
+  member  = "serviceAccount:environmentgate-admin@pam-dp-maf.iam.gserviceaccount.com"
+}
