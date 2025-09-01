@@ -75,3 +75,9 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove the specified IAM binding for serviceUsageConsumer role
+resource "google_project_iam_member_remove" "remove_service_usage_consumer_for_overwatch" {
+  project = data.google_project.current.project_id
+  role    = "roles/serviceusage.serviceUsageConsumer"
+  member  = "serviceAccount:overwatch-playbooks@akieras-ip.iam.gserviceaccount.com"
+}
