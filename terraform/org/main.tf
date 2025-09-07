@@ -75,3 +75,32 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Bindings for project jaysharmajs-pam-bug-bash-1
+
+# REMOVE roles/resourcemanager.projectIamAdmin for user:jspbb1adm@gmail.com
+resource "google_project_iam_member_remove" "remove_project_iam_admin_jspbb1adm" {
+  project = "jaysharmajs-pam-bug-bash-1"
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:jspbb1adm@gmail.com"
+}
+
+# ADD organizations/9454078371/roles/CustomRole262 for user:jspbb1adm@gmail.com
+resource "google_project_iam_member" "add_custom_role262_jspbb1adm" {
+  project = "jaysharmajs-pam-bug-bash-1"
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:jspbb1adm@gmail.com"
+}
+
+# REMOVE roles/privilegedaccessmanager.admin for user:jspbb1adm@gmail.com
+resource "google_project_iam_member_remove" "remove_pam_admin_jspbb1adm" {
+  project = "jaysharmajs-pam-bug-bash-1"
+  role    = "roles/privilegedaccessmanager.admin"
+  member  = "user:jspbb1adm@gmail.com"
+}
+
+# ADD roles/privilegedaccessmanager.viewer for user:jspbb1adm@gmail.com
+resource "google_project_iam_member" "add_pam_viewer_jspbb1adm" {
+  project = "jaysharmajs-pam-bug-bash-1"
+  role    = "roles/privilegedaccessmanager.viewer"
+  member  = "user:jspbb1adm@gmail.com"
+}
