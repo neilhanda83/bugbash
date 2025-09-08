@@ -75,3 +75,35 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Data source for the target project for IAM changes
+data "google_project" "target_project_pam" {
+  project_id = "jaysharmajs-pam-bug-bash-1"
+}
+
+# IAM Binding changes for user:jspbb1adm@gmail.com on project jaysharmajs-pam-bug-bash-1
+
+# REMOVE roles
+resource "google_project_iam_member_remove" "remove_project_iam_admin_jspbb1adm" {
+  project = data.google_project.target_project_pam.project_id
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:jspbb1adm@gmail.com"
+}
+
+resource "google_project_iam_member_remove" "remove_pam_admin_jspbb1adm" {
+  project = data.google_project.target_project_pam.project_id
+  role    = "roles/privilegedaccessmanager.admin"
+  member  = "user:jspbb1adm@gmail.com"
+}
+
+# ADD roles
+resource "google_project_iam_member" "add_custom_role262_jspbb1adm" {
+  project = data.google_project.target_project_pam.project_id
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:jspbb1adm@gmail.com"
+}
+
+resource "google_project_iam_member" "add_pam_viewer_jspbb1adm" {
+  project = data.google_project.target_project_pam.project_id
+  role    = "roles/privilegedaccessmanager.viewer"
+  member  = "user:jspbb1adm@gmail.com"
+}
