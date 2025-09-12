@@ -75,3 +75,25 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding updates for user:ankurdua@google.com
+
+# Remove roles/owner for user:ankurdua@google.com
+resource "google_project_iam_member_remove" "remove_owner_for_ankurdua" {
+  project = data.google_project.current.project_id
+  role    = "roles/owner"
+  member  = "user:ankurdua@google.com"
+}
+
+# Add roles/appmetadata.workspaceMarketplaceAppConfigurationAdmin for user:ankurdua@google.com
+resource "google_project_iam_member" "add_app_config_admin_for_ankurdua" {
+  project = data.google_project.current.project_id
+  role    = "roles/appmetadata.workspaceMarketplaceAppConfigurationAdmin"
+  member  = "user:ankurdua@google.com"
+}
+
+# Add roles/billing.projectManager for user:ankurdua@google.com
+resource "google_project_iam_member" "add_billing_project_manager_for_ankurdua" {
+  project = data.google_project.current.project_id
+  role    = "roles/billing.projectManager"
+  member  = "user:ankurdua@google.com"
+}
