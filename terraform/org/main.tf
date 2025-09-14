@@ -75,3 +75,28 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Data source for the target project for IAM changes
+data "google_project" "rashi_pam_test_2" {
+  project_id = "rashi-pam-test-2"
+}
+
+# Remove roles/owner for user:ankurdua@google.com from rashi-pam-test-2
+resource "google_project_iam_member_remove" "remove_owner_ankurdua" {
+  project = data.google_project.rashi_pam_test_2.project_id
+  role    = "roles/owner"
+  member  = "user:ankurdua@google.com"
+}
+
+# Add roles/appmetadata.workspaceMarketplaceAppConfigurationAdmin for user:ankurdua@google.com to rashi-pam-test-2
+resource "google_project_iam_member" "add_appmetadata_admin_ankurdua" {
+  project = data.google_project.rashi_pam_test_2.project_id
+  role    = "roles/appmetadata.workspaceMarketplaceAppConfigurationAdmin"
+  member  = "user:ankurdua@google.com"
+}
+
+# Add roles/billing.projectManager for user:ankurdua@google.com to rashi-pam-test-2
+resource "google_project_iam_member" "add_billing_project_manager_ankurdua" {
+  project = data.google_project.rashi_pam_test_2.project_id
+  role    = "roles/billing.projectManager"
+  member  = "user:ankurdua@google.com"
+}
