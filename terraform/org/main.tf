@@ -17,6 +17,11 @@ data "google_project" "current" {
   project_id = "600587461297"
 }
 
+# Data source for the target project from IAM_BINDINGS
+data "google_project" "rashi_pam_test_2" {
+  project_id = "rashi-pam-test-2"
+}
+
 resource "google_compute_network" "main_network" {
   name                    = "my-vpc-network"
   auto_create_subnetworks = false
@@ -75,3 +80,25 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM BINDINGS for user:ankurdua@google.com on project rashi-pam-test-2
+
+# Action: REMOVE roles/owner
+resource "google_project_iam_member_remove" "remove_owner_ankurdua" {
+  project = data.google_project.rashi_pam_test_2.project_id
+  role    = "roles/owner"
+  member  = "user:ankurdua@google.com"
+}
+
+# Action: ADD roles/appmetadata.workspaceMarketplaceAppConfigurationAdmin
+resource "google_project_iam_member" "add_app_config_admin_ankurdua" {
+  project = data.google_project.rashi_pam_test_2.project_id
+  role    = "roles/appmetadata.workspaceMarketplaceAppConfigurationAdmin"
+  member  = "user:ankurdua@google.com"
+}
+
+# Action: ADD roles/billing.projectManager
+resource "google_project_iam_member" "add_billing_project_manager_ankurdua" {
+  project = data.google_project.rashi_pam_test_2.project_id
+  role    = "roles/billing.projectManager"
+  member  = "user:ankurdua@google.com"
+}
