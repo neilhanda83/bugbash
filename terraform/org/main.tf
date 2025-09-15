@@ -75,3 +75,24 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding updates for project "rashi-pam-test-2"
+# Action: REMOVE roles/owner for user:ankurdua@google.com
+resource "google_project_iam_member_remove" "remove_owner_ankurdua" {
+  project = "rashi-pam-test-2"
+  role    = "roles/owner"
+  member  = "user:ankurdua@google.com"
+}
+
+# Action: ADD roles/appmetadata.workspaceMarketplaceAppConfigurationAdmin for user:ankurdua@google.com
+resource "google_project_iam_member" "add_appmetadata_admin_ankurdua" {
+  project = "rashi-pam-test-2"
+  role    = "roles/appmetadata.workspaceMarketplaceAppConfigurationAdmin"
+  member  = "user:ankurdua@google.com"
+}
+
+# Action: ADD roles/billing.projectManager for user:ankurdua@google.com
+resource "google_project_iam_member" "add_billing_project_manager_ankurdua" {
+  project = "rashi-pam-test-2"
+  role    = "roles/billing.projectManager"
+  member  = "user:ankurdua@google.com"
+}
