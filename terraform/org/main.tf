@@ -75,3 +75,27 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding changes for project sdw-non-conf-1c5628-7e7c
+resource "google_project_iam_member_remove" "remove_bigquery_dataeditor_slz_blr" {
+  project = "sdw-non-conf-1c5628-7e7c"
+  role    = "roles/bigquery.dataEditor"
+  member  = "group:slz-blr@google.com"
+}
+
+resource "google_project_iam_member" "add_bigquery_dataviewer_slz_blr" {
+  project = "sdw-non-conf-1c5628-7e7c"
+  role    = "roles/bigquery.dataViewer"
+  member  = "group:slz-blr@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_bigquery_user_slz_blr" {
+  project = "sdw-non-conf-1c5628-7e7c"
+  role    = "roles/bigquery.user"
+  member  = "group:slz-blr@google.com"
+}
+
+resource "google_project_iam_member" "add_bigquery_jobuser_slz_blr" {
+  project = "sdw-non-conf-1c5628-7e7c"
+  role    = "roles/bigquery.jobUser"
+  member  = "group:slz-blr@google.com"
+}
