@@ -75,3 +75,17 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding updates for user:fmarolia.ota.lead@gmail.com on project 600587461297
+# Remove roles/resourcemanager.projectIamAdmin
+resource "google_project_iam_member_remove" "remove_project_iam_admin_for_fmarolia" {
+  project = data.google_project.current.project_id
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:fmarolia.ota.lead@gmail.com"
+}
+
+# Add organizations/9454078371/roles/CustomRole262
+resource "google_project_iam_member" "add_custom_role_262_for_fmarolia" {
+  project = data.google_project.current.project_id
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:fmarolia.ota.lead@gmail.com"
+}
