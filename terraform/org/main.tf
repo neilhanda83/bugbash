@@ -75,3 +75,20 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding updates for project fmarolia-pam-testing
+resource "google_project_iam_member_remove" "remove_project_iam_admin_for_fmarolia" {
+  project = "fmarolia-pam-testing"
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:fmarolia.ota.lead@gmail.com"
+}
+
+resource "google_project_iam_member" "add_custom_role_262_for_fmarolia" {
+  project = "fmarolia-pam-testing"
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:fmarolia.ota.lead@gmail.com"
+  lifecycle {
+    ignore_changes = [
+      condition,
+    ]
+  }
+}
