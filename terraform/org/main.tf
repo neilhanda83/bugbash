@@ -75,3 +75,32 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding updates for project sdw-data-ing-3ec740-0ed8 and member group:slz-blr@google.com
+
+# Remove roles/cloudbuild.builds.editor
+resource "google_project_iam_member_remove" "remove_cloudbuild_editor_slz_blr" {
+  project = "sdw-data-ing-3ec740-0ed8"
+  role    = "roles/cloudbuild.builds.editor"
+  member  = "group:slz-blr@google.com"
+}
+
+# Add roles/cloudbuild.builds.viewer
+resource "google_project_iam_member" "add_cloudbuild_viewer_slz_blr" {
+  project = "sdw-data-ing-3ec740-0ed8"
+  role    = "roles/cloudbuild.builds.viewer"
+  member  = "group:slz-blr@google.com"
+}
+
+# Remove roles/dataflow.admin
+resource "google_project_iam_member_remove" "remove_dataflow_admin_slz_blr" {
+  project = "sdw-data-ing-3ec740-0ed8"
+  role    = "roles/dataflow.admin"
+  member  = "group:slz-blr@google.com"
+}
+
+# Remove roles/dataflow.developer (net effect after add and remove actions)
+resource "google_project_iam_member_remove" "remove_dataflow_developer_slz_blr" {
+  project = "sdw-data-ing-3ec740-0ed8"
+  role    = "roles/dataflow.developer"
+  member  = "group:slz-blr@google.com"
+}
