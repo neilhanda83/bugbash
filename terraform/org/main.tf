@@ -75,3 +75,36 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# New IAM resources for project sdw-data-ing-3ec740-0ed8 and member group:slz-blr@google.com
+
+# Remove roles for group:slz-blr@google.com on project sdw-data-ing-3ec740-0ed8
+resource "google_project_iam_member_remove" "remove_cloudbuild_editor_for_slz_blr" {
+  project = "sdw-data-ing-3ec740-0ed8"
+  role    = "roles/cloudbuild.builds.editor"
+  member  = "group:slz-blr@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_dataflow_admin_for_slz_blr" {
+  project = "sdw-data-ing-3ec740-0ed8"
+  role    = "roles/dataflow.admin"
+  member  = "group:slz-blr@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_dataflow_developer_for_slz_blr" {
+  project = "sdw-data-ing-3ec740-0ed8"
+  role    = "roles/dataflow.developer"
+  member  = "group:slz-blr@google.com"
+}
+
+# Add roles for group:slz-blr@google.com on project sdw-data-ing-3ec740-0ed8
+resource "google_project_iam_member" "add_cloudbuild_viewer_for_slz_blr" {
+  project = "sdw-data-ing-3ec740-0ed8"
+  role    = "roles/cloudbuild.builds.viewer"
+  member  = "group:slz-blr@google.com"
+}
+
+resource "google_project_iam_member" "add_dataflow_developer_for_slz_blr" {
+  project = "sdw-data-ing-3ec740-0ed8"
+  role    = "roles/dataflow.developer"
+  member  = "group:slz-blr@google.com"
+}
