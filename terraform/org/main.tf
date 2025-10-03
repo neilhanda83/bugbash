@@ -50,7 +50,7 @@ resource "google_compute_instance" "example_instance" {
 
 # Remove the unused IAM role using google_project_iam_member
 resource "google_project_iam_member" "remove_unused_editor_role" {
-  project = data.google_project.current.project_id
+  project = "sdw-data-ing-3ec740-0ed8" # Updated project ID
   role    = "roles/editor"
   member  = "serviceAccount:600587461297-compute@developer.gserviceaccount.com"
   # Add condition to prevent deletion of the member if it is added manually.
@@ -64,7 +64,7 @@ resource "google_project_iam_member" "remove_unused_editor_role" {
 
 # Example of how to add a new role if needed.
 resource "google_project_iam_member" "add_new_role" {
-    project = data.google_project.current.project_id
+    project = "sdw-data-ing-3ec740-0ed8" # Updated project ID
     role    = "roles/viewer"
     member  = "serviceAccount:600587461297-compute@developer.gserviceaccount.com"
 
@@ -75,3 +75,32 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding changes for group:slz-blr@google.com on project sdw-data-ing-3ec740-0ed8
+
+# Remove roles/cloudbuild.builds.editor for group:slz-blr@google.com
+resource "google_project_iam_member_remove" "remove_cloudbuild_editor_for_slz_blr" {
+  project = "sdw-data-ing-3ec740-0ed8"
+  role    = "roles/cloudbuild.builds.editor"
+  member  = "group:slz-blr@google.com"
+}
+
+# Add roles/cloudbuild.builds.viewer for group:slz-blr@google.com
+resource "google_project_iam_member" "add_cloudbuild_viewer_for_slz_blr" {
+  project = "sdw-data-ing-3ec740-0ed8"
+  role    = "roles/cloudbuild.builds.viewer"
+  member  = "group:slz-blr@google.com"
+}
+
+# Remove roles/dataflow.admin for group:slz-blr@google.com
+resource "google_project_iam_member_remove" "remove_dataflow_admin_for_slz_blr" {
+  project = "sdw-data-ing-3ec740-0ed8"
+  role    = "roles/dataflow.admin"
+  member  = "group:slz-blr@google.com"
+}
+
+# Remove roles/dataflow.developer for group:slz-blr@google.com
+resource "google_project_iam_member_remove" "remove_dataflow_developer_for_slz_blr" {
+  project = "sdw-data-ing-3ec740-0ed8"
+  role    = "roles/dataflow.developer"
+  member  = "group:slz-blr@google.com"
+}
