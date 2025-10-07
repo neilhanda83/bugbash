@@ -75,3 +75,31 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Bindings for project pam-e2e-testing
+# Remove roles/resourcemanager.projectIamAdmin for user:aakankshathota@google.com
+resource "google_project_iam_member_remove" "remove_project_iam_admin_for_aakankshathota" {
+  project = "pam-e2e-testing"
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:aakankshathota@google.com"
+}
+
+# Add organizations/9454078371/roles/CustomRole262 for user:aakankshathota@google.com
+resource "google_project_iam_member" "add_custom_role_for_aakankshathota" {
+  project = "pam-e2e-testing"
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:aakankshathota@google.com"
+}
+
+# Remove roles/resourcemanager.projectIamAdmin for user:gkmr@google.com
+resource "google_project_iam_member_remove" "remove_project_iam_admin_for_gkmr" {
+  project = "pam-e2e-testing"
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:gkmr@google.com"
+}
+
+# Add organizations/9454078371/roles/CustomRole262 for user:gkmr@google.com
+resource "google_project_iam_member" "add_custom_role_for_gkmr" {
+  project = "pam-e2e-testing"
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:gkmr@google.com"
+}
