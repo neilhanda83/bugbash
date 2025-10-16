@@ -75,3 +75,9 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove editor role for serviceAccount:984890043344@cloudservices.gserviceaccount.com from project neil-chatbot
+resource "google_project_iam_member_remove" "remove_editor_from_cloudservices_sa" {
+  project = "neil-chatbot"
+  role    = "roles/editor"
+  member  = "serviceAccount:984890043344@cloudservices.gserviceaccount.com"
+}
