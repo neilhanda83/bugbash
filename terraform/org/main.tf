@@ -75,3 +75,21 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding updates for user:gkmr@google.com
+resource "google_project_iam_member_remove" "remove-viewer-gkmr" {
+  project = data.google_project.current.project_id
+  role    = "roles/viewer"
+  member  = "user:gkmr@google.com"
+}
+
+resource "google_project_iam_member" "add-recommender-project-util-viewer-gkmr" {
+  project = data.google_project.current.project_id
+  role    = "roles/recommender.projectUtilViewer"
+  member  = "user:gkmr@google.com"
+}
+
+resource "google_project_iam_member" "add-resourcemanager-tag-viewer-gkmr" {
+  project = data.google_project.current.project_id
+  role    = "roles/resourcemanager.tagViewer"
+  member  = "user:gkmr@google.com"
+}
