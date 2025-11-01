@@ -75,3 +75,17 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding updates for project akieras-ip
+# Remove roles/owner for user:varunbhardwaj@google.com
+resource "google_project_iam_member_remove" "remove_owner_for_varunbhardwaj" {
+  project = "akieras-ip"
+  role    = "roles/owner"
+  member  = "user:varunbhardwaj@google.com"
+}
+
+# Add organizations/9454078371/roles/CustomRole262 for user:varunbhardwaj@google.com
+resource "google_project_iam_member" "add_custom_role_for_varunbhardwaj" {
+  project = "akieras-ip"
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:varunbhardwaj@google.com"
+}
