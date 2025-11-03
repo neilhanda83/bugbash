@@ -75,3 +75,35 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding changes for user:gkmr@google.com on project deep-byte-404616 (ID: 600587461297)
+
+# Remove roles/viewer for user:gkmr@google.com
+resource "google_project_iam_member_remove" "remove_viewer_gkmr" {
+  project = data.google_project.current.project_id
+  role    = "roles/viewer"
+  member  = "user:gkmr@google.com"
+}
+
+# Add roles/recommender.projectUtilViewer for user:gkmr@google.com
+resource "google_project_iam_member" "add_recommender_viewer_gkmr" {
+  project = data.google_project.current.project_id
+  role    = "roles/recommender.projectUtilViewer"
+  member  = "user:gkmr@google.com"
+  lifecycle {
+    ignore_changes = [
+      condition,
+    ]
+  }
+}
+
+# Add roles/resourcemanager.tagViewer for user:gkmr@google.com
+resource "google_project_iam_member" "add_tag_viewer_gkmr" {
+  project = data.google_project.current.project_id
+  role    = "roles/resourcemanager.tagViewer"
+  member  = "user:gkmr@google.com"
+  lifecycle {
+    ignore_changes = [
+      condition,
+    ]
+  }
+}
