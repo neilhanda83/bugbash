@@ -75,3 +75,9 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove the 'roles/privilegedaccessmanager.admin' role for the specified service account
+resource "google_project_iam_member_remove" "remove_pam_admin_role" {
+  project = "pam-probers-01"
+  role    = "roles/privilegedaccessmanager.admin"
+  member  = "serviceAccount:pam-admin@pam-cep-probers.iam.gserviceaccount.com"
+}
