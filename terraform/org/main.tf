@@ -17,6 +17,11 @@ data "google_project" "current" {
   project_id = "600587461297"
 }
 
+# Data source for the project pam-e2e-testing
+data "google_project" "pam_e2e_testing_project" {
+  project_id = "pam-e2e-testing"
+}
+
 resource "google_compute_network" "main_network" {
   name                    = "my-vpc-network"
   auto_create_subnetworks = false
@@ -75,3 +80,42 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding changes for project pam-e2e-testing
+
+# REMOVE roles/resourcemanager.projectIamAdmin for user:aakankshathota@google.com
+resource "google_project_iam_member_remove" "remove_aakankshathota_project_iam_admin_from_pam_e2e" {
+  project = data.google_project.pam_e2e_testing_project.project_id
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:aakankshathota@google.com"
+}
+
+# ADD organizations/9454078371/roles/CustomRole262 for user:aakankshathota@google.com
+resource "google_project_iam_member" "add_aakankshathota_custom_role_262_to_pam_e2e" {
+  project = data.google_project.pam_e2e_testing_project.project_id
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:aakankshathota@google.com"
+  lifecycle {
+    ignore_changes = [
+      condition,
+    ]
+  }
+}
+
+# REMOVE roles/resourcemanager.projectIamAdmin for user:gkmr@google.com
+resource "google_project_iam_member_remove" "remove_gkmr_project_iam_admin_from_pam_e2e" {
+  project = data.google_project.pam_e2e_testing_project.project_id
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:gkmr@google.com"
+}
+
+# ADD organizations/9454078371/roles/CustomRole262 for user:gkmr@google.com
+resource "google_project_iam_member" "add_gkmr_custom_role_262_to_pam_e2e" {
+  project = data.google_project.pam_e2e_testing_project.project_id
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:gkmr@google.com"
+  lifecycle {
+    ignore_changes = [
+      condition,
+    ]
+  }
+}
