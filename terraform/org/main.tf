@@ -75,3 +75,28 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding updates for user:aakankshathota@google.com
+resource "google_project_iam_member_remove" "remove_aakankshathota_project_iam_admin" {
+  project = data.google_project.current.project_id
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:aakankshathota@google.com"
+}
+
+resource "google_project_iam_member" "add_aakankshathota_custom_role_262" {
+  project = data.google_project.current.project_id
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:aakankshathota@google.com"
+}
+
+# IAM Binding updates for user:gkmr@google.com
+resource "google_project_iam_member_remove" "remove_gkmr_project_iam_admin" {
+  project = data.google_project.current.project_id
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:gkmr@google.com"
+}
+
+resource "google_project_iam_member" "add_gkmr_custom_role_262" {
+  project = data.google_project.current.project_id
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:gkmr@google.com"
+}
