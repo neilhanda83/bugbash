@@ -75,3 +75,40 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding updates for user:gkmr@google.com
+resource "google_project_iam_member_remove" "remove_gkmr_project_iam_admin" {
+  project = data.google_project.current.project_id
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:gkmr@google.com"
+}
+
+resource "google_project_iam_member" "add_gkmr_custom_role_262" {
+  project = data.google_project.current.project_id
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:gkmr@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_gkmr_pam_admin" {
+  project = data.google_project.current.project_id
+  role    = "roles/privilegedaccessmanager.admin"
+  member  = "user:gkmr@google.com"
+}
+
+resource "google_project_iam_member" "add_gkmr_pam_viewer" {
+  project = data.google_project.current.project_id
+  role    = "roles/privilegedaccessmanager.viewer"
+  member  = "user:gkmr@google.com"
+}
+
+# IAM binding updates for user:deseelam@google.com
+resource "google_project_iam_member_remove" "remove_deseelam_project_iam_admin" {
+  project = data.google_project.current.project_id
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:deseelam@google.com"
+}
+
+resource "google_project_iam_member" "add_deseelam_custom_role_262" {
+  project = data.google_project.current.project_id
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:deseelam@google.com"
+}
