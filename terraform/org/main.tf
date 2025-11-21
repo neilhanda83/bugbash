@@ -75,3 +75,9 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove the 'roles/iap.tunnelResourceAccessor' role for 'user:deseelam@google.com'
+resource "google_project_iam_member_remove" "remove_iap_tunnel_accessor_for_deseelam" {
+  project = data.google_project.current.project_id
+  role    = "roles/iap.tunnelResourceAccessor"
+  member  = "user:deseelam@google.com"
+}
