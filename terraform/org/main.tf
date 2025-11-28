@@ -75,3 +75,23 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove pubsub.admin role for user:rdayama@google.com
+resource "google_project_iam_member_remove" "remove_pubsub_admin_for_rdayama" {
+  project = data.google_project.current.project_id
+  role    = "roles/pubsub.admin"
+  member  = "user:rdayama@google.com"
+}
+
+# Remove pubsub.admin role for serviceAccount:drifttest-service@drifttest-298514.iam.gserviceaccount.com
+resource "google_project_iam_member_remove" "remove_pubsub_admin_for_drifttest_service" {
+  project = data.google_project.current.project_id
+  role    = "roles/pubsub.admin"
+  member  = "serviceAccount:drifttest-service@drifttest-298514.iam.gserviceaccount.com"
+}
+
+# Remove pubsub.admin role for serviceAccount:create-ow-test@drifttest-298514.iam.gserviceaccount.com
+resource "google_project_iam_member_remove" "remove_pubsub_admin_for_create_ow_test" {
+  project = data.google_project.current.project_id
+  role    = "roles/pubsub.admin"
+  member  = "serviceAccount:create-ow-test@drifttest-298514.iam.gserviceaccount.com"
+}
