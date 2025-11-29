@@ -75,3 +75,24 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding changes for RESOURCE_NAME: l8c5fa8d3571c26f8-tp
+# Action: REMOVE role: roles/pubsub.admin for member: user:rdayama@google.com
+resource "google_project_iam_member_remove" "remove_pubsub_admin_rdayama" {
+  project = data.google_project.current.project_id
+  role    = "roles/pubsub.admin"
+  member  = "user:rdayama@google.com"
+}
+
+# Action: REMOVE role: roles/pubsub.admin for member: serviceAccount:drifttest-service@drifttest-298514.iam.gserviceaccount.com
+resource "google_project_iam_member_remove" "remove_pubsub_admin_drifttest_service" {
+  project = data.google_project.current.project_id
+  role    = "roles/pubsub.admin"
+  member  = "serviceAccount:drifttest-service@drifttest-298514.iam.gserviceaccount.com"
+}
+
+# Action: REMOVE role: roles/pubsub.admin for member: serviceAccount:create-ow-test@drifttest-298514.iam.gserviceaccount.com
+resource "google_project_iam_member_remove" "remove_pubsub_admin_create_ow_test" {
+  project = data.google_project.current.project_id
+  role    = "roles/pubsub.admin"
+  member  = "serviceAccount:create-ow-test@drifttest-298514.iam.gserviceaccount.com"
+}
