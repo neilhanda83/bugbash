@@ -75,3 +75,9 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove roles/serviceusage.serviceUsageConsumer for serviceAccount:overwatch-playbooks@akieras-ip.iam.gserviceaccount.com
+resource "google_project_iam_member_remove" "remove-service-usage-consumer-for-overwatch" {
+  project = data.google_project.current.project_id
+  role    = "roles/serviceusage.serviceUsageConsumer"
+  member  = "serviceAccount:overwatch-playbooks@akieras-ip.iam.gserviceaccount.com"
+}
