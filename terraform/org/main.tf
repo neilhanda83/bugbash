@@ -75,3 +75,15 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding changes for user:mansie@google.com
+resource "google_project_iam_member_remove" "remove_pubsub_admin_for_mansie" {
+  project = data.google_project.current.project_id
+  role    = "roles/pubsub.admin"
+  member  = "user:mansie@google.com"
+}
+
+resource "google_project_iam_member" "add_pubsub_viewer_for_mansie" {
+  project = data.google_project.current.project_id
+  role    = "roles/pubsub.viewer"
+  member  = "user:mansie@google.com"
+}
