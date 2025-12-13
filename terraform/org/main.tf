@@ -75,3 +75,9 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove the 'roles/securityposture.reportCreator' role for 'user:tiruveedhulap@google.com' from project 'sigma-cortex-418004'
+resource "google_project_iam_member_remove" "remove_securityposture_report_creator_for_tiruveedhulap" {
+  project = "sigma-cortex-418004"
+  role    = "roles/securityposture.reportCreator"
+  member  = "user:tiruveedhulap@google.com"
+}
