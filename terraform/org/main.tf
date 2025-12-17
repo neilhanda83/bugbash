@@ -75,3 +75,18 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding changes for RESOURCE_NAME: pam-e2e-testing-staging (assuming project ID 600587461297)
+
+# REMOVE roles/iam.serviceAccountAdmin for user:sharmarajdaksh@google.com
+resource "google_project_iam_member_remove" "remove_service_account_admin_for_sharmarajdaksh" {
+  project = data.google_project.current.project_id
+  role    = "roles/iam.serviceAccountAdmin"
+  member  = "user:sharmarajdaksh@google.com"
+}
+
+# ADD roles/iam.serviceAccountCreator for user:sharmarajdaksh@google.com
+resource "google_project_iam_member" "add_service_account_creator_for_sharmarajdaksh" {
+  project = data.google_project.current.project_id
+  role    = "roles/iam.serviceAccountCreator"
+  member  = "user:sharmarajdaksh@google.com"
+}
