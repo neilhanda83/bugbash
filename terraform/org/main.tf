@@ -75,3 +75,32 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding updates based on the provided IAM_BINDINGS
+
+# REMOVE roles/iam.serviceAccountAdmin for user:yashiksingla@google.com
+resource "google_project_iam_member_remove" "remove_yashiksingla_service_account_admin" {
+  project = data.google_project.current.project_id
+  role    = "roles/iam.serviceAccountAdmin"
+  member  = "user:yashiksingla@google.com"
+}
+
+# ADD roles/iam.serviceAccountCreator for user:yashiksingla@google.com
+resource "google_project_iam_member" "add_yashiksingla_service_account_creator" {
+  project = data.google_project.current.project_id
+  role    = "roles/iam.serviceAccountCreator"
+  member  = "user:yashiksingla@google.com"
+}
+
+# REMOVE roles/iam.serviceAccountAdmin for user:divyanshas@google.com
+resource "google_project_iam_member_remove" "remove_divyanshas_service_account_admin" {
+  project = data.google_project.current.project_id
+  role    = "roles/iam.serviceAccountAdmin"
+  member  = "user:divyanshas@google.com"
+}
+
+# ADD roles/iam.serviceAccountCreator for user:divyanshas@google.com
+resource "google_project_iam_member" "add_divyanshas_service_account_creator" {
+  project = data.google_project.current.project_id
+  role    = "roles/iam.serviceAccountCreator"
+  member  = "user:divyanshas@google.com"
+}
