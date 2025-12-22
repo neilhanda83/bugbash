@@ -75,3 +75,17 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding updates for project pam-vpcsc-maf
+# Remove roles/compute.networkAdmin for serviceAccount:environmentgate-admin@pam-vpcsc-maf.iam.gserviceaccount.com
+resource "google_project_iam_member_remove" "remove_network_admin_for_environmentgate_admin" {
+  project = "pam-vpcsc-maf"
+  role    = "roles/compute.networkAdmin"
+  member  = "serviceAccount:environmentgate-admin@pam-vpcsc-maf.iam.gserviceaccount.com"
+}
+
+# Add roles/networkconnectivity.regionalEndpointViewer for serviceAccount:environmentgate-admin@pam-vpcsc-maf.iam.gserviceaccount.com
+resource "google_project_iam_member" "add_regional_endpoint_viewer_for_environmentgate_admin" {
+  project = "pam-vpcsc-maf"
+  role    = "roles/networkconnectivity.regionalEndpointViewer"
+  member  = "serviceAccount:environmentgate-admin@pam-vpcsc-maf.iam.gserviceaccount.com"
+}
