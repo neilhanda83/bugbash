@@ -75,3 +75,23 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding updates based on the provided IAM_BINDINGS
+
+# Remove roles/editor for serviceAccount:990821146674-compute@developer.gserviceaccount.com
+resource "google_project_iam_member_remove" "remove_editor_for_990821146674_compute_sa" {
+  project = data.google_project.current.project_id
+  role    = "roles/editor"
+  member  = "serviceAccount:990821146674-compute@developer.gserviceaccount.com"
+}
+
+# Add roles/logging.logWriter for serviceAccount:990821146674-compute@developer.gserviceaccount.com
+resource "google_project_iam_member" "add_logwriter_for_990821146674_compute_sa" {
+  project = data.google_project.current.project_id
+  role    = "roles/logging.logWriter"
+  member  = "serviceAccount:990821146674-compute@developer.gserviceaccount.com"
+  lifecycle {
+    ignore_changes = [
+      condition,
+    ]
+  }
+}
