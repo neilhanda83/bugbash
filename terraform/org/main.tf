@@ -75,3 +75,17 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding changes for project e2e-test-drs-drift
+# REMOVE roles/editor for serviceAccount:990821146674-compute@developer.gserviceaccount.com
+resource "google_project_iam_member_remove" "remove_editor_for_compute_sa" {
+  project = "e2e-test-drs-drift"
+  role    = "roles/editor"
+  member  = "serviceAccount:990821146674-compute@developer.gserviceaccount.com"
+}
+
+# ADD roles/logging.logWriter for serviceAccount:990821146674-compute@developer.gserviceaccount.com
+resource "google_project_iam_member" "add_logwriter_for_compute_sa" {
+  project = "e2e-test-drs-drift"
+  role    = "roles/logging.logWriter"
+  member  = "serviceAccount:990821146674-compute@developer.gserviceaccount.com"
+}
