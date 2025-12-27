@@ -12,9 +12,14 @@ provider "google" {
   project = "600587461297" # Replace with your project ID
 }
 
-# Data source for the project
+# Data source for the project currently managed by this file
 data "google_project" "current" {
   project_id = "600587461297"
+}
+
+# Data source for the project targeted by the IAM changes
+data "google_project" "target_project_iam" {
+  project_id = "terraform-cloud-445206"
 }
 
 resource "google_compute_network" "main_network" {
@@ -48,6 +53,7 @@ resource "google_compute_instance" "example_instance" {
   }
 }
 
+# Existing IAM resources for project 600587461297
 # Remove the unused IAM role using google_project_iam_member
 resource "google_project_iam_member" "remove_unused_editor_role" {
   project = data.google_project.current.project_id
@@ -75,3 +81,60 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# New IAM changes for project terraform-cloud-445206 based on IAM_BINDINGS
+
+# Changes for member: user:singhakan@google.com
+resource "google_project_iam_member_remove" "remove_singhakan_cloudkms_admin" {
+  project = data.google_project.target_project_iam.project_id
+  role    = "roles/cloudkms.admin"
+  member  = "user:singhakan@google.com"
+}
+
+resource "google_project_iam_member" "add_singhakan_cloudkms_importer" {
+  project = data.google_project.target_project_iam.project_id
+  role    = "roles/cloudkms.importer"
+  member  = "user:singhakan@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_singhakan_secret_version_manager" {
+  project = data.google_project.target_project_iam.project_id
+  role    = "roles/secretmanager.secretVersionManager"
+  member  = "user:singhakan@google.com"
+}
+
+resource "google_project_iam_member" "add_singhakan_secret_version_adder" {
+  project = data.google_project.target_project_iam.project_id
+  role    = "roles/secretmanager.secretVersionAdder"
+  member  = "user:singhakan@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_singhakan_owner" {
+  project = data.google_project.target_project_iam.project_id
+  role    = "roles/owner"
+  member  = "user:singhakan@google.com"
+}
+
+resource "google_project_iam_member" "add_singhakan_custom_role_262" {
+  project = data.google_project.target_project_iam.project_id
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:singhakan@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_singhakan_secretmanager_admin" {
+  project = data.google_project.target_project_iam.project_id
+  role    = "roles/secretmanager.admin"
+  member  = "user:singhakan@google.com"
+}
+
+# Changes for member: serviceAccount:302158293184-compute@developer.gserviceaccount.com
+resource "google_project_iam_member_remove" "remove_compute_sa_editor" {
+  project = data.google_project.target_project_iam.project_id
+  role    = "roles/editor"
+  member  = "serviceAccount:302158293184-compute@developer.gserviceaccount.com"
+}
+
+resource "google_project_iam_member" "add_compute_sa_container_node" {
+  project = data.google_project.target_project_iam.project_id
+  role    = "roles/container.defaultNodeServiceAccount"
+  member  = "serviceAccount:302158293184-compute@developer.gserviceaccount.com"
+}
