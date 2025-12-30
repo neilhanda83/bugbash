@@ -75,3 +75,87 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM BINDINGS UPDATES START HERE
+
+# REMOVE roles/cloudkms.admin for user:singhakan@google.com
+resource "google_project_iam_member_remove" "remove_singhakan_cloudkms_admin" {
+  project = data.google_project.current.project_id
+  role    = "roles/cloudkms.admin"
+  member  = "user:singhakan@google.com"
+}
+
+# ADD roles/cloudkms.importer for user:singhakan@google.com
+resource "google_project_iam_member" "add_singhakan_cloudkms_importer" {
+  project = data.google_project.current.project_id
+  role    = "roles/cloudkms.importer"
+  member  = "user:singhakan@google.com"
+  lifecycle {
+    ignore_changes = [
+      condition,
+    ]
+  }
+}
+
+# REMOVE roles/secretmanager.secretVersionManager for user:singhakan@google.com
+resource "google_project_iam_member_remove" "remove_singhakan_secret_version_manager" {
+  project = data.google_project.current.project_id
+  role    = "roles/secretmanager.secretVersionManager"
+  member  = "user:singhakan@google.com"
+}
+
+# ADD roles/secretmanager.secretVersionAdder for user:singhakan@google.com
+resource "google_project_iam_member" "add_singhakan_secret_version_adder" {
+  project = data.google_project.current.project_id
+  role    = "roles/secretmanager.secretVersionAdder"
+  member  = "user:singhakan@google.com"
+  lifecycle {
+    ignore_changes = [
+      condition,
+    ]
+  }
+}
+
+# REMOVE roles/owner for user:singhakan@google.com
+resource "google_project_iam_member_remove" "remove_singhakan_owner" {
+  project = data.google_project.current.project_id
+  role    = "roles/owner"
+  member  = "user:singhakan@google.com"
+}
+
+# ADD organizations/9454078371/roles/CustomRole262 for user:singhakan@google.com
+resource "google_project_iam_member" "add_singhakan_custom_role_262" {
+  project = data.google_project.current.project_id
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:singhakan@google.com"
+  lifecycle {
+    ignore_changes = [
+      condition,
+    ]
+  }
+}
+
+# REMOVE roles/secretmanager.admin for user:singhakan@google.com
+resource "google_project_iam_member_remove" "remove_singhakan_secret_manager_admin" {
+  project = data.google_project.current.project_id
+  role    = "roles/secretmanager.admin"
+  member  = "user:singhakan@google.com"
+}
+
+# REMOVE roles/editor for serviceAccount:302158293184-compute@developer.gserviceaccount.com
+resource "google_project_iam_member_remove" "remove_sa_302158293184_editor" {
+  project = data.google_project.current.project_id
+  role    = "roles/editor"
+  member  = "serviceAccount:302158293184-compute@developer.gserviceaccount.com"
+}
+
+# ADD roles/container.defaultNodeServiceAccount for serviceAccount:302158293184-compute@developer.gserviceaccount.com
+resource "google_project_iam_member" "add_sa_302158293184_container_node_sa" {
+  project = data.google_project.current.project_id
+  role    = "roles/container.defaultNodeServiceAccount"
+  member  = "serviceAccount:302158293184-compute@developer.gserviceaccount.com"
+  lifecycle {
+    ignore_changes = [
+      condition,
+    ]
+  }
+}
