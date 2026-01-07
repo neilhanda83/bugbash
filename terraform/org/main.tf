@@ -75,3 +75,32 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Bindings for project yashiksingla-pam-testing
+
+# Remove roles/iam.serviceAccountAdmin for user:yashiksingla@google.com
+resource "google_project_iam_member_remove" "remove_service_account_admin_yashiksingla" {
+  project = "yashiksingla-pam-testing"
+  role    = "roles/iam.serviceAccountAdmin"
+  member  = "user:yashiksingla@google.com"
+}
+
+# Add roles/iam.serviceAccountCreator for user:yashiksingla@google.com
+resource "google_project_iam_member" "add_service_account_creator_yashiksingla" {
+  project = "yashiksingla-pam-testing"
+  role    = "roles/iam.serviceAccountCreator"
+  member  = "user:yashiksingla@google.com"
+}
+
+# Remove roles/iam.serviceAccountAdmin for user:divyanshas@google.com
+resource "google_project_iam_member_remove" "remove_service_account_admin_divyanshas" {
+  project = "yashiksingla-pam-testing"
+  role    = "roles/iam.serviceAccountAdmin"
+  member  = "user:divyanshas@google.com"
+}
+
+# Add roles/iam.serviceAccountCreator for user:divyanshas@google.com
+resource "google_project_iam_member" "add_service_account_creator_divyanshas" {
+  project = "yashiksingla-pam-testing"
+  role    = "roles/iam.serviceAccountCreator"
+  member  = "user:divyanshas@google.com"
+}
