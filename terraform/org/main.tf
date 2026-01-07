@@ -75,3 +75,28 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding updates for user:sharmarajdaksh@google.com
+resource "google_project_iam_member_remove" "remove_sharmarajdaksh_project_iam_admin" {
+  project = data.google_project.current.project_id
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:sharmarajdaksh@google.com"
+}
+
+resource "google_project_iam_member" "add_sharmarajdaksh_custom_role262" {
+  project = data.google_project.current.project_id
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:sharmarajdaksh@google.com"
+}
+
+# IAM binding updates for user:divyanshas@google.com
+resource "google_project_iam_member_remove" "remove_divyanshas_project_iam_admin" {
+  project = data.google_project.current.project_id
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:divyanshas@google.com"
+}
+
+resource "google_project_iam_member" "add_divyanshas_custom_role262" {
+  project = data.google_project.current.project_id
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:divyanshas@google.com"
+}
