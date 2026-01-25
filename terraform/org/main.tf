@@ -75,3 +75,23 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove IAM binding for user:rdayama@google.com with roles/pubsub.admin
+resource "google_project_iam_member_remove" "remove_rdayama_pubsub_admin" {
+  project = "l8c5fa8d3571c26f8-tp"
+  role    = "roles/pubsub.admin"
+  member  = "user:rdayama@google.com"
+}
+
+# Remove IAM binding for serviceAccount:drifttest-service@drifttest-298514.iam.gserviceaccount.com with roles/pubsub.admin
+resource "google_project_iam_member_remove" "remove_drifttest_service_pubsub_admin" {
+  project = "l8c5fa8d3571c26f8-tp"
+  role    = "roles/pubsub.admin"
+  member  = "serviceAccount:drifttest-service@drifttest-298514.iam.gserviceaccount.com"
+}
+
+# Remove IAM binding for serviceAccount:create-ow-test@drifttest-298514.iam.gserviceaccount.com with roles/pubsub.admin
+resource "google_project_iam_member_remove" "remove_create_ow_test_pubsub_admin" {
+  project = "l8c5fa8d3571c26f8-tp"
+  role    = "roles/pubsub.admin"
+  member  = "serviceAccount:create-ow-test@drifttest-298514.iam.gserviceaccount.com"
+}
