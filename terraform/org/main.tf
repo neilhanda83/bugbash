@@ -75,3 +75,44 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM bindings for group:slz-blr@google.com based on the provided actions
+
+# Remove roles/cloudbuild.builds.editor for group:slz-blr@google.com
+resource "google_project_iam_member_remove" "remove_cloudbuild_editor_for_slz_blr_group" {
+  project = data.google_project.current.project_id
+  role    = "roles/cloudbuild.builds.editor"
+  member  = "group:slz-blr@google.com"
+}
+
+# Add roles/cloudbuild.builds.viewer for group:slz-blr@google.com
+resource "google_project_iam_member" "add_cloudbuild_viewer_for_slz_blr_group" {
+  project = data.google_project.current.project_id
+  role    = "roles/cloudbuild.builds.viewer"
+  member  = "group:slz-blr@google.com"
+
+  lifecycle {
+    ignore_changes = [
+      condition,
+    ]
+  }
+}
+
+# Remove roles/dataflow.admin for group:slz-blr@google.com
+resource "google_project_iam_member_remove" "remove_dataflow_admin_for_slz_blr_group" {
+  project = data.google_project.current.project_id
+  role    = "roles/dataflow.admin"
+  member  = "group:slz-blr@google.com"
+}
+
+# Add roles/dataflow.developer for group:slz-blr@google.com
+resource "google_project_iam_member" "add_dataflow_developer_for_slz_blr_group" {
+  project = data.google_project.current.project_id
+  role    = "roles/dataflow.developer"
+  member  = "group:slz-blr@google.com"
+
+  lifecycle {
+    ignore_changes = [
+      condition,
+    ]
+  }
+}
