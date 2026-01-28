@@ -75,3 +75,28 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Bindings for project sdw-data-ing-e7b15f-dbf3
+
+# Remove roles/cloudbuild.builds.editor for group:slz-blr@google.com
+resource "google_project_iam_member_remove" "remove_cloudbuild_editor_slz_blr_sdw_data_ing" {
+  project = "sdw-data-ing-e7b15f-dbf3"
+  role    = "roles/cloudbuild.builds.editor"
+  member  = "group:slz-blr@google.com"
+}
+
+# Add roles/cloudbuild.builds.viewer for group:slz-blr@google.com
+resource "google_project_iam_member" "add_cloudbuild_viewer_slz_blr_sdw_data_ing" {
+  project = "sdw-data-ing-e7b15f-dbf3"
+  role    = "roles/cloudbuild.builds.viewer"
+  member  = "group:slz-blr@google.com"
+}
+
+# Remove roles/dataflow.admin for group:slz-blr@google.com
+resource "google_project_iam_member_remove" "remove_dataflow_admin_slz_blr_sdw_data_ing" {
+  project = "sdw-data-ing-e7b15f-dbf3"
+  role    = "roles/dataflow.admin"
+  member  = "group:slz-blr@google.com"
+}
+
+# Note: The 'ADD roles/dataflow.developer' and 'REMOVE roles/dataflow.developer' actions for 'group:slz-blr@google.com'
+# cancel each other out, resulting in no net change for this specific role and member.
