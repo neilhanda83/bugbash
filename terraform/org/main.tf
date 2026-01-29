@@ -75,3 +75,26 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM changes based on the provided IAM_BINDINGS for group:slz-blr@google.com
+# Remove roles/cloudbuild.builds.editor for group:slz-blr@google.com
+resource "google_project_iam_member_remove" "remove_cloudbuild_editor_for_slz_blr" {
+  project = data.google_project.current.project_id
+  role    = "roles/cloudbuild.builds.editor"
+  member  = "group:slz-blr@google.com"
+}
+
+# Add roles/cloudbuild.builds.viewer for group:slz-blr@google.com
+resource "google_project_iam_member" "add_cloudbuild_viewer_for_slz_blr" {
+  project = data.google_project.current.project_id
+  role    = "roles/cloudbuild.builds.viewer"
+  member  = "group:slz-blr@google.com"
+}
+
+# Remove roles/dataflow.admin for group:slz-blr@google.com
+resource "google_project_iam_member_remove" "remove_dataflow_admin_for_slz_blr" {
+  project = data.google_project.current.project_id
+  role    = "roles/dataflow.admin"
+  member  = "group:slz-blr@google.com"
+}
+
+# The role roles/dataflow.developer was added then removed, resulting in no net change.
