@@ -75,3 +75,39 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Bindings for project sdw-data-ing-e7b15f-dbf3
+
+# Remove roles/cloudbuild.builds.editor for group:slz-blr@google.com
+resource "google_project_iam_member_remove" "remove_cloudbuild_editor_slz_blr" {
+  project = "sdw-data-ing-e7b15f-dbf3"
+  role    = "roles/cloudbuild.builds.editor"
+  member  = "group:slz-blr@google.com"
+}
+
+# Add roles/cloudbuild.builds.viewer for group:slz-blr@google.com
+resource "google_project_iam_member" "add_cloudbuild_viewer_slz_blr" {
+  project = "sdw-data-ing-e7b15f-dbf3"
+  role    = "roles/cloudbuild.builds.viewer"
+  member  = "group:slz-blr@google.com"
+}
+
+# Remove roles/dataflow.admin for group:slz-blr@google.com
+resource "google_project_iam_member_remove" "remove_dataflow_admin_slz_blr" {
+  project = "sdw-data-ing-e7b15f-dbf3"
+  role    = "roles/dataflow.admin"
+  member  = "group:slz-blr@google.com"
+}
+
+# Add roles/dataflow.developer for group:slz-blr@google.com
+resource "google_project_iam_member" "add_dataflow_developer_slz_blr" {
+  project = "sdw-data-ing-e7b15f-dbf3"
+  role    = "roles/dataflow.developer"
+  member  = "group:slz-blr@google.com"
+}
+
+# Remove roles/dataflow.developer for group:slz-blr@google.com
+resource "google_project_iam_member_remove" "remove_dataflow_developer_slz_blr" {
+  project = "sdw-data-ing-e7b15f-dbf3"
+  role    = "roles/dataflow.developer"
+  member  = "group:slz-blr@google.com"
+}
