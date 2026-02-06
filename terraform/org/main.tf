@@ -17,6 +17,11 @@ data "google_project" "current" {
   project_id = "600587461297"
 }
 
+# Data source for the target project for IAM changes
+data "google_project" "target_project_sdw_non_conf" {
+  project_id = "sdw-non-conf-63f2d7-27bc"
+}
+
 resource "google_compute_network" "main_network" {
   name                    = "my-vpc-network"
   auto_create_subnetworks = false
@@ -75,3 +80,32 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Bindings for project sdw-non-conf-63f2d7-27bc
+
+# REMOVE roles/bigquery.dataEditor for group:slz-blr@google.com
+resource "google_project_iam_member_remove" "remove_bigquery_data_editor_for_slz_blr_group" {
+  project = data.google_project.target_project_sdw_non_conf.project_id
+  role    = "roles/bigquery.dataEditor"
+  member  = "group:slz-blr@google.com"
+}
+
+# ADD roles/bigquery.dataViewer for group:slz-blr@google.com
+resource "google_project_iam_member" "add_bigquery_data_viewer_for_slz_blr_group" {
+  project = data.google_project.target_project_sdw_non_conf.project_id
+  role    = "roles/bigquery.dataViewer"
+  member  = "group:slz-blr@google.com"
+}
+
+# REMOVE roles/bigquery.user for group:slz-blr@google.com
+resource "google_project_iam_member_remove" "remove_bigquery_user_for_slz_blr_group" {
+  project = data.google_project.target_project_sdw_non_conf.project_id
+  role    = "roles/bigquery.user"
+  member  = "group:slz-blr@google.com"
+}
+
+# ADD roles/bigquery.jobUser for group:slz-blr@google.com
+resource "google_project_iam_member" "add_bigquery_job_user_for_slz_blr_group" {
+  project = data.google_project.target_project_sdw_non_conf.project_id
+  role    = "roles/bigquery.jobUser"
+  member  = "group:slz-blr@google.com"
+}
