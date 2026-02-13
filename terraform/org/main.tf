@@ -75,3 +75,18 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding updates for project pam-deny-maf
+
+# REMOVE roles/compute.networkAdmin for serviceAccount:environmentgate-admin@pam-deny-maf.iam.gserviceaccount.com
+resource "google_project_iam_member_remove" "remove_environmentgate_network_admin" {
+  project = "pam-deny-maf"
+  role    = "roles/compute.networkAdmin"
+  member  = "serviceAccount:environmentgate-admin@pam-deny-maf.iam.gserviceaccount.com"
+}
+
+# ADD roles/networkconnectivity.regionalEndpointViewer for serviceAccount:environmentgate-admin@pam-deny-maf.iam.gserviceaccount.com
+resource "google_project_iam_member" "add_environmentgate_regional_endpoint_viewer" {
+  project = "pam-deny-maf"
+  role    = "roles/networkconnectivity.regionalEndpointViewer"
+  member  = "serviceAccount:environmentgate-admin@pam-deny-maf.iam.gserviceaccount.com"
+}
