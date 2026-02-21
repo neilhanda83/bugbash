@@ -30,7 +30,11 @@ resource "google_compute_firewall" "allow_elastic_tcp_9200" {
     protocol = "tcp"
     ports    = ["9200"]
   }
-  source_ranges = ["0.0.0.0/0"]
+  source_ranges = [
+    "10.0.0.0/8",       # 10.0.0.0 — 10.255.255.255
+    "172.16.0.0/12",    # 172.16.0.0 — 172.31.255.255
+    "192.168.0.0/16"     # 192.168.0.0 — 192.168.255.255
+]
 }
 resource "google_compute_instance" "example_instance" {
   name         = "example-instance-with-tag"
@@ -74,4 +78,3 @@ resource "google_project_iam_member" "add_new_role" {
       ]
     }
 }
-
