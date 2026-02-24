@@ -75,3 +75,46 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Bindings for group:landingzone-eng@google.com
+
+# Remove roles
+resource "google_project_iam_member_remove" "remove_dataflow_developer_for_landingzone_eng" {
+  project = data.google_project.current.project_id
+  role    = "roles/dataflow.developer"
+  member  = "group:landingzone-eng@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_dataflow_admin_for_landingzone_eng" {
+  project = data.google_project.current.project_id
+  role    = "roles/dataflow.admin"
+  member  = "group:landingzone-eng@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_cloudbuild_builds_editor_for_landingzone_eng" {
+  project = data.google_project.current.project_id
+  role    = "roles/cloudbuild.builds.editor"
+  member  = "group:landingzone-eng@google.com"
+}
+
+# Add roles
+resource "google_project_iam_member" "add_cloudbuild_builds_viewer_for_landingzone_eng" {
+  project = data.google_project.current.project_id
+  role    = "roles/cloudbuild.builds.viewer"
+  member  = "group:landingzone-eng@google.com"
+  lifecycle {
+    ignore_changes = [
+      condition,
+    ]
+  }
+}
+
+resource "google_project_iam_member" "add_dataflow_developer_for_landingzone_eng" {
+  project = data.google_project.current.project_id
+  role    = "roles/dataflow.developer"
+  member  = "group:landingzone-eng@google.com"
+  lifecycle {
+    ignore_changes = [
+      condition,
+    ]
+  }
+}
