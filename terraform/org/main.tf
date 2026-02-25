@@ -75,3 +75,30 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM bindings for bqdw2-project1 and group:landingzone-eng@google.com
+
+# Add roles for group:landingzone-eng@google.com on bqdw2-project1
+resource "google_project_iam_member" "add_cloudbuild_viewer_to_landingzone_eng" {
+  project = "bqdw2-project1"
+  role    = "roles/cloudbuild.builds.viewer"
+  member  = "group:landingzone-eng@google.com"
+}
+
+resource "google_project_iam_member" "add_dataflow_developer_to_landingzone_eng" {
+  project = "bqdw2-project1"
+  role    = "roles/dataflow.developer"
+  member  = "group:landingzone-eng@google.com"
+}
+
+# Remove roles for group:landingzone-eng@google.com on bqdw2-project1
+resource "google_project_iam_member_remove" "remove_dataflow_admin_from_landingzone_eng" {
+  project = "bqdw2-project1"
+  role    = "roles/dataflow.admin"
+  member  = "group:landingzone-eng@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_cloudbuild_editor_from_landingzone_eng" {
+  project = "bqdw2-project1"
+  role    = "roles/cloudbuild.builds.editor"
+  member  = "group:landingzone-eng@google.com"
+}
