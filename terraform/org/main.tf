@@ -75,3 +75,51 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Bindings to remove for project pam-e2e-testing-sandbox
+resource "google_project_iam_member_remove" "remove_serviceusage_consumer_cloud_control2_jobs" {
+  project = "pam-e2e-testing-sandbox"
+  role    = "roles/serviceusage.serviceUsageConsumer"
+  member  = "user:cloud-control2-privilegedaccessmanager-dev-jobs@prod.google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_sa_token_creator_cloud_control2_jobs" {
+  project = "pam-e2e-testing-sandbox"
+  role    = "roles/iam.serviceAccountTokenCreator"
+  member  = "user:cloud-control2-privilegedaccessmanager-dev-jobs@prod.google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_pubsub_publisher_cloud_control2_jobs" {
+  project = "pam-e2e-testing-sandbox"
+  role    = "roles/pubsub.publisher"
+  member  = "user:cloud-control2-privilegedaccessmanager-dev-jobs@prod.google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_pam_admin_pam_sandbox_sa" {
+  project = "pam-e2e-testing-sandbox"
+  role    = "roles/privilegedaccessmanager.admin"
+  member  = "serviceAccount:pam-sandbox-ankitprsad@pam-e2e-testing-sandbox.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_pubsub_subscriber_cloud_control2_jobs" {
+  project = "pam-e2e-testing-sandbox"
+  role    = "roles/pubsub.subscriber"
+  member  = "user:cloud-control2-privilegedaccessmanager-dev-jobs@prod.google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_sa_token_creator_divyanshas" {
+  project = "pam-e2e-testing-sandbox"
+  role    = "roles/iam.serviceAccountTokenCreator"
+  member  = "user:divyanshas@prod.google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_project_iam_admin_pam_sandbox_sa" {
+  project = "pam-e2e-testing-sandbox"
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "serviceAccount:pam-sandbox-ankitprsad@pam-e2e-testing-sandbox.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_sa_admin_sharmarajdaksh" {
+  project = "pam-e2e-testing-sandbox"
+  role    = "roles/iam.serviceAccountAdmin"
+  member  = "user:sharmarajdaksh@prod.google.com"
+}
