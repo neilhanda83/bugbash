@@ -75,3 +75,39 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM bindings to remove for serviceAccount:tf-deployment-account@sdw-data-ing-681eb3-9948.iam.gserviceaccount.com on project ci-sdw-ext-flx-fb244e-9a1f
+resource "google_project_iam_member_remove" "remove_tf_deployment_sa_deleter" {
+  project = "ci-sdw-ext-flx-fb244e-9a1f"
+  role    = "roles/iam.serviceAccountDeleter"
+  member  = "serviceAccount:tf-deployment-account@sdw-data-ing-681eb3-9948.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_tf_deployment_sa_creator" {
+  project = "ci-sdw-ext-flx-fb244e-9a1f"
+  role    = "roles/iam.serviceAccountCreator"
+  member  = "serviceAccount:tf-deployment-account@sdw-data-ing-681eb3-9948.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_tf_deployment_storage_admin" {
+  project = "ci-sdw-ext-flx-fb244e-9a1f"
+  role    = "roles/storage.admin"
+  member  = "serviceAccount:tf-deployment-account@sdw-data-ing-681eb3-9948.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_tf_deployment_cloudbuild_editor" {
+  project = "ci-sdw-ext-flx-fb244e-9a1f"
+  role    = "roles/cloudbuild.builds.editor"
+  member  = "serviceAccount:tf-deployment-account@sdw-data-ing-681eb3-9948.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_tf_deployment_artifact_admin" {
+  project = "ci-sdw-ext-flx-fb244e-9a1f"
+  role    = "roles/artifactregistry.admin"
+  member  = "serviceAccount:tf-deployment-account@sdw-data-ing-681eb3-9948.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_tf_deployment_browser" {
+  project = "ci-sdw-ext-flx-fb244e-9a1f"
+  role    = "roles/browser"
+  member  = "serviceAccount:tf-deployment-account@sdw-data-ing-681eb3-9948.iam.gserviceaccount.com"
+}
