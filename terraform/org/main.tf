@@ -75,3 +75,44 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM bindings for project pam-demo-at-next24
+
+# Remove roles for user:gkmr@google.com
+resource "google_project_iam_member_remove" "remove_gkmr_project_iam_admin" {
+  project = "pam-demo-at-next24"
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:gkmr@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_gkmr_pam_admin" {
+  project = "pam-demo-at-next24"
+  role    = "roles/privilegedaccessmanager.admin"
+  member  = "user:gkmr@google.com"
+}
+
+# Add roles for user:gkmr@google.com
+resource "google_project_iam_member" "add_gkmr_custom_role_262" {
+  project = "pam-demo-at-next24"
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:gkmr@google.com"
+}
+
+resource "google_project_iam_member" "add_gkmr_pam_viewer" {
+  project = "pam-demo-at-next24"
+  role    = "roles/privilegedaccessmanager.viewer"
+  member  = "user:gkmr@google.com"
+}
+
+# Remove roles for user:deseelam@google.com
+resource "google_project_iam_member_remove" "remove_deseelam_project_iam_admin" {
+  project = "pam-demo-at-next24"
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:deseelam@google.com"
+}
+
+# Add roles for user:deseelam@google.com
+resource "google_project_iam_member" "add_deseelam_custom_role_262" {
+  project = "pam-demo-at-next24"
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:deseelam@google.com"
+}
