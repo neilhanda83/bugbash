@@ -75,3 +75,42 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Bindings for project "pam-e2e-testing-sandbox"
+
+# REMOVE actions
+resource "google_project_iam_member_remove" "remove_projectiamadmin_sharmarajdaksh" {
+  project = "pam-e2e-testing-sandbox"
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:sharmarajdaksh@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_projectiamadmin_divyanshas" {
+  project = "pam-e2e-testing-sandbox"
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:divyanshas@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_serviceaccountadmin_sharmarajdaksh" {
+  project = "pam-e2e-testing-sandbox"
+  role    = "roles/iam.serviceAccountAdmin"
+  member  = "user:sharmarajdaksh@google.com"
+}
+
+# ADD actions
+resource "google_project_iam_member" "add_customrole262_sharmarajdaksh" {
+  project = "pam-e2e-testing-sandbox"
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:sharmarajdaksh@google.com"
+}
+
+resource "google_project_iam_member" "add_customrole262_divyanshas" {
+  project = "pam-e2e-testing-sandbox"
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:divyanshas@google.com"
+}
+
+resource "google_project_iam_member" "add_serviceaccountcreator_sharmarajdaksh" {
+  project = "pam-e2e-testing-sandbox"
+  role    = "roles/iam.serviceAccountCreator"
+  member  = "user:sharmarajdaksh@google.com"
+}
