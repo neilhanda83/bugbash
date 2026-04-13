@@ -12,9 +12,14 @@ provider "google" {
   project = "600587461297" # Replace with your project ID
 }
 
-# Data source for the project
+# Data source for the project currently managed by this file
 data "google_project" "current" {
   project_id = "600587461297"
+}
+
+# Data source for the project specified in IAM_BINDINGS
+data "google_project" "sdw_conf_project" {
+  project_id = "sdw-conf-590784-67db"
 }
 
 resource "google_compute_network" "main_network" {
@@ -75,3 +80,60 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Bindings for project sdw-conf-590784-67db and member group:slz-blr@google.com
+
+# REMOVE roles/bigquery.dataEditor
+resource "google_project_iam_member_remove" "slz_blr_remove_bigquery_dataeditor" {
+  project = data.google_project.sdw_conf_project.project_id
+  role    = "roles/bigquery.dataEditor"
+  member  = "group:slz-blr@google.com"
+}
+
+# ADD roles/bigquery.dataViewer
+resource "google_project_iam_member" "slz_blr_add_bigquery_dataviewer" {
+  project = data.google_project.sdw_conf_project.project_id
+  role    = "roles/bigquery.dataViewer"
+  member  = "group:slz-blr@google.com"
+}
+
+# REMOVE roles/bigquery.user
+resource "google_project_iam_member_remove" "slz_blr_remove_bigquery_user" {
+  project = data.google_project.sdw_conf_project.project_id
+  role    = "roles/bigquery.user"
+  member  = "group:slz-blr@google.com"
+}
+
+# ADD roles/bigquery.jobUser
+resource "google_project_iam_member" "slz_blr_add_bigquery_jobuser" {
+  project = data.google_project.sdw_conf_project.project_id
+  role    = "roles/bigquery.jobUser"
+  member  = "group:slz-blr@google.com"
+}
+
+# REMOVE roles/dataflow.admin
+resource "google_project_iam_member_remove" "slz_blr_remove_dataflow_admin" {
+  project = data.google_project.sdw_conf_project.project_id
+  role    = "roles/dataflow.admin"
+  member  = "group:slz-blr@google.com"
+}
+
+# REMOVE roles/dataflow.developer (as ADD was followed by REMOVE)
+resource "google_project_iam_member_remove" "slz_blr_remove_dataflow_developer" {
+  project = data.google_project.sdw_conf_project.project_id
+  role    = "roles/dataflow.developer"
+  member  = "group:slz-blr@google.com"
+}
+
+# ADD roles/cloudbuild.builds.viewer
+resource "google_project_iam_member" "slz_blr_add_cloudbuild_viewer" {
+  project = data.google_project.sdw_conf_project.project_id
+  role    = "roles/cloudbuild.builds.viewer"
+  member  = "group:slz-blr@google.com"
+}
+
+# REMOVE roles/cloudbuild.builds.editor
+resource "google_project_iam_member_remove" "slz_blr_remove_cloudbuild_editor" {
+  project = data.google_project.sdw_conf_project.project_id
+  role    = "roles/cloudbuild.builds.editor"
+  member  = "group:slz-blr@google.com"
+}
