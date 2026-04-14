@@ -30,48 +30,13 @@ resource "google_compute_firewall" "allow_elastic_tcp_9200" {
     protocol = "tcp"
     ports    = ["9200"]
   }
-  source_ranges = ["0.0.0.0/0"]
+  source_ranges = [
+    "10.0.0.0/8",       # 10.0.0.0 — 10.255.255.255
+    "172.16.0.0/12",    # 172.16.0.0 — 172.31.255.255
+    "192.168.0.0/16"     # 192.168.0.0 — 192.168.255.255
+  ]
 }
 resource "google_compute_instance" "example_instance" {
   name         = "example-instance-with-tag"
   machine_type = "e2-medium"
   zone         = "us-central1-a"
-  tags         = ["elkstack-1-elastic"]
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-12"
-    }
-  }
-  network_interface {
-    network = google_compute_network.main_network.self_link
-    access_config {}
-  }
-}
-
-# Remove the unused IAM role using google_project_iam_member
-resource "google_project_iam_member" "remove_unused_editor_role" {
-  project = data.google_project.current.project_id
-  role    = "roles/editor"
-  member  = "serviceAccount:600587461297-compute@developer.gserviceaccount.com"
-  # Add condition to prevent deletion of the member if it is added manually.
-  lifecycle {
-    ignore_changes = [
-      condition,
-    ]
-    # prevent_destroy = true # Recommended for important resources, but not needed here
-  }
-}
-
-# Example of how to add a new role if needed.
-resource "google_project_iam_member" "add_new_role" {
-    project = data.google_project.current.project_id
-    role    = "roles/viewer"
-    member  = "serviceAccount:600587461297-compute@developer.gserviceaccount.com"
-
-    lifecycle {
-      ignore_changes = [
-        condition,
-      ]
-    }
-}
-
