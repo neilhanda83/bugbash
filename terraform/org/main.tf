@@ -75,3 +75,9 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove the 'roles/serviceusage.serviceUsageAdmin' role for 'user:abhinavgrg@prod.google.com' from project 'abhinav-mcp-test'
+resource "google_project_iam_member_remove" "remove_serviceusage_admin_for_abhinavgrg" {
+  project = "abhinav-mcp-test"
+  role    = "roles/serviceusage.serviceUsageAdmin"
+  member  = "user:abhinavgrg@prod.google.com"
+}
