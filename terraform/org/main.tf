@@ -75,3 +75,9 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove the 'roles/serviceusage.serviceUsageAdmin' role for 'user:abhinavgrg@prod.google.com'
+resource "google_project_iam_member_remove" "remove_serviceusage_admin_for_abhinavgrg" {
+  project = data.google_project.current.project_id
+  role    = "roles/serviceusage.serviceUsageAdmin"
+  member  = "user:abhinavgrg@prod.google.com"
+}
