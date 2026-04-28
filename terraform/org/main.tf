@@ -75,3 +75,38 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# --- IAM BINDINGS for project sdw-data-ing-3ec740-0ed8 and member group:slz-blr@google.com ---
+
+# Add roles for group:slz-blr@google.com on project sdw-data-ing-3ec740-0ed8
+resource "google_project_iam_member" "add_cloudbuild_viewer_slz_blr" {
+  project = "sdw-data-ing-3ec740-0ed8"
+  role    = "roles/cloudbuild.builds.viewer"
+  member  = "group:slz-blr@google.com"
+}
+
+resource "google_project_iam_member" "add_dataflow_developer_slz_blr" {
+  project = "sdw-data-ing-3ec740-0ed8"
+  role    = "roles/dataflow.developer"
+  member  = "group:slz-blr@google.com"
+}
+
+# Remove roles for group:slz-blr@google.com on project sdw-data-ing-3ec740-0ed8
+resource "google_project_iam_member_remove" "remove_cloudbuild_editor_slz_blr" {
+  project = "sdw-data-ing-3ec740-0ed8"
+  role    = "roles/cloudbuild.builds.editor"
+  member  = "group:slz-blr@google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_dataflow_admin_slz_blr" {
+  project = "sdw-data-ing-3ec740-0ed8"
+  role    = "roles/dataflow.admin"
+  member  = "group:slz-blr@google.com"
+}
+
+# This role is explicitly removed and then added in the IAM_BINDINGS.
+# The remove action ensures it's not present before the add action ensures it is.
+resource "google_project_iam_member_remove" "remove_dataflow_developer_slz_blr" {
+  project = "sdw-data-ing-3ec740-0ed8"
+  role    = "roles/dataflow.developer"
+  member  = "group:slz-blr@google.com"
+}
