@@ -75,3 +75,46 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Bindings for project sdw-data-ing-e7b15f-dbf3
+
+# Remove roles/cloudbuild.builds.editor for group:slz-blr@google.com
+resource "google_project_iam_member_remove" "remove_cloudbuild_editor_slz_blr" {
+  project = "sdw-data-ing-e7b15f-dbf3"
+  role    = "roles/cloudbuild.builds.editor"
+  member  = "group:slz-blr@google.com"
+}
+
+# Add roles/cloudbuild.builds.viewer for group:slz-blr@google.com
+resource "google_project_iam_member" "add_cloudbuild_viewer_slz_blr" {
+  project = "sdw-data-ing-e7b15f-dbf3"
+  role    = "roles/cloudbuild.builds.viewer"
+  member  = "group:slz-blr@google.com"
+}
+
+# Remove roles/dataflow.admin for group:slz-blr@google.com
+resource "google_project_iam_member_remove" "remove_dataflow_admin_slz_blr" {
+  project = "sdw-data-ing-e7b15f-dbf3"
+  role    = "roles/dataflow.admin"
+  member  = "group:slz-blr@google.com"
+}
+
+# Remove roles/dataflow.developer for group:slz-blr@google.com (due to ADD then REMOVE)
+resource "google_project_iam_member_remove" "remove_dataflow_developer_slz_blr" {
+  project = "sdw-data-ing-e7b15f-dbf3"
+  role    = "roles/dataflow.developer"
+  member  = "group:slz-blr@google.com"
+}
+
+# Remove roles/storage.admin for user:mansie@google.com
+resource "google_project_iam_member_remove" "remove_storage_admin_mansie" {
+  project = "sdw-data-ing-e7b15f-dbf3"
+  role    = "roles/storage.admin"
+  member  = "user:mansie@google.com"
+}
+
+# Add roles/storage.insightsCollectorService for user:mansie@google.com
+resource "google_project_iam_member" "add_storage_insights_mansie" {
+  project = "sdw-data-ing-e7b15f-dbf3"
+  role    = "roles/storage.insightsCollectorService"
+  member  = "user:mansie@google.com"
+}
