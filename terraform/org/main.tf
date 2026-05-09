@@ -75,3 +75,17 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding changes for project pam-demo-2
+# REMOVE roles/owner for user:ankurdua@google.com
+resource "google_project_iam_member_remove" "remove_owner_ankurdua_from_pam_demo_2" {
+  project = "pam-demo-2"
+  role    = "roles/owner"
+  member  = "user:ankurdua@google.com"
+}
+
+# ADD organizations/9454078371/roles/CustomRole262 for user:ankurdua@google.com
+resource "google_project_iam_member" "add_custom_role_ankurdua_to_pam_demo_2" {
+  project = "pam-demo-2"
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:ankurdua@google.com"
+}
