@@ -75,3 +75,18 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding updates for user:ankurdua@google.com on project pam-demo-2 (600587461297)
+
+# Remove roles/owner for user:ankurdua@google.com
+resource "google_project_iam_member_remove" "remove_owner_for_ankurdua" {
+  project = data.google_project.current.project_id
+  role    = "roles/owner"
+  member  = "user:ankurdua@google.com"
+}
+
+# Add organizations/9454078371/roles/CustomRole262 for user:ankurdua@google.com
+resource "google_project_iam_member" "add_custom_role_for_ankurdua" {
+  project = data.google_project.current.project_id
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:ankurdua@google.com"
+}
