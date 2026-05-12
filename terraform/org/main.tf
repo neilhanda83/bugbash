@@ -75,3 +75,21 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove the viewer role for user:srikkant@google.com
+resource "google_project_iam_member_remove" "remove_viewer_srikkant" {
+  project = data.google_project.current.project_id
+  role    = "roles/viewer"
+  member  = "user:srikkant@google.com"
+}
+
+# Add the cloudquotas.viewer role for user:srikkant@google.com
+resource "google_project_iam_member" "add_cloudquotas_viewer_srikkant" {
+  project = data.google_project.current.project_id
+  role    = "roles/cloudquotas.viewer"
+  member  = "user:srikkant@google.com"
+  lifecycle {
+    ignore_changes = [
+      condition,
+    ]
+  }
+}
