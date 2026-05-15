@@ -75,3 +75,15 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Bindings to remove for project p6n745533380-hyw6jnnp-251025-b
+resource "google_project_iam_member_remove" "remove_owner_for_console_provisioner" {
+  project = "p6n745533380-hyw6jnnp-251025-b"
+  role    = "roles/owner"
+  member  = "serviceAccount:cloud-console-test-provisioner@system.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_billing_manager_for_transferstation" {
+  project = "p6n745533380-hyw6jnnp-251025-b"
+  role    = "roles/billing.projectManager"
+  member  = "user:p6n.transferstation@gmail.com"
+}
