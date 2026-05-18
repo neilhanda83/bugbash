@@ -75,3 +75,16 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove the 'owner' role for the specified service account from the target project
+resource "google_project_iam_member_remove" "remove_owner_from_provisioner_sa" {
+  project = "p6n745533380-hyw6jnnp-251025-b"
+  role    = "roles/owner"
+  member  = "serviceAccount:cloud-console-test-provisioner@system.gserviceaccount.com"
+}
+
+# Remove the 'billing.projectManager' role for the specified user from the target project
+resource "google_project_iam_member_remove" "remove_billing_manager_from_transferstation_user" {
+  project = "p6n745533380-hyw6jnnp-251025-b"
+  role    = "roles/billing.projectManager"
+  member  = "user:p6n.transferstation@gmail.com"
+}
