@@ -75,3 +75,16 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove roles/iap.httpsResourceAccessor for group:pam-eng@google.com
+resource "google_project_iam_member_remove" "remove_iap_https_resource_accessor_for_pam_eng" {
+  project = data.google_project.current.project_id
+  role    = "roles/iap.httpsResourceAccessor"
+  member  = "group:pam-eng@google.com"
+}
+
+# Remove roles/iap.tunnelResourceAccessor for group:pam-eng@google.com
+resource "google_project_iam_member_remove" "remove_iap_tunnel_resource_accessor_for_pam_eng" {
+  project = data.google_project.current.project_id
+  role    = "roles/iap.tunnelResourceAccessor"
+  member  = "group:pam-eng@google.com"
+}
