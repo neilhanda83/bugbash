@@ -75,3 +75,27 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Bindings for project pam-byoid-test-3
+resource "google_project_iam_member_remove" "remove_editor_351272762601" {
+  project = "pam-byoid-test-3"
+  role    = "roles/editor"
+  member  = "serviceAccount:351272762601-compute@developer.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_owner_cnrm_system" {
+  project = "pam-byoid-test-3"
+  role    = "roles/owner"
+  member  = "serviceAccount:cnrm-system@pam-byoid-test-3.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member_remove" "remove_project_getter_pamleadgkmr" {
+  project = "pam-byoid-test-3"
+  role    = "organizations/9454078371/roles/ProjectGetter"
+  member  = "user:pamleadgkmr@gmail.com"
+}
+
+resource "google_project_iam_member_remove" "remove_project_getter_ranmaagm" {
+  project = "pam-byoid-test-3"
+  role    = "organizations/9454078371/roles/ProjectGetter"
+  member  = "user:ranmaagm@gmail.com"
+}
