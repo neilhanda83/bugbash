@@ -75,3 +75,9 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove the serviceUsageConsumer role for overwatch-playbooks service account on project debug-egress
+resource "google_project_iam_member_remove" "remove_overwatch_playbooks_service_usage_consumer" {
+  project = "debug-egress"
+  role    = "roles/serviceusage.serviceUsageConsumer"
+  member  = "serviceAccount:overwatch-playbooks@akieras-ip.iam.gserviceaccount.com"
+}
