@@ -75,3 +75,17 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding changes for project sdw-data-ing-3ef33c-e649
+# Action: REMOVE roles/storage.objectViewer for serviceAccount:sa-dataflow-controller@sdw-data-ing-3ef33c-e649.iam.gserviceaccount.com
+resource "google_project_iam_member_remove" "remove_storage_object_viewer_for_dataflow_sa" {
+  project = "sdw-data-ing-3ef33c-e649"
+  role    = "roles/storage.objectViewer"
+  member  = "serviceAccount:sa-dataflow-controller@sdw-data-ing-3ef33c-e649.iam.gserviceaccount.com"
+}
+
+# Action: ADD organizations/9454078371/roles/pamproberscustomrole for serviceAccount:sa-dataflow-controller@sdw-data-ing-3ef33c-e649.iam.gserviceaccount.com
+resource "google_project_iam_member" "add_pamprobers_custom_role_for_dataflow_sa" {
+  project = "sdw-data-ing-3ef33c-e649"
+  role    = "organizations/9454078371/roles/pamproberscustomrole"
+  member  = "serviceAccount:sa-dataflow-controller@sdw-data-ing-3ef33c-e649.iam.gserviceaccount.com"
+}
