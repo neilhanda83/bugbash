@@ -75,3 +75,21 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Data source for the target project for new IAM bindings
+data "google_project" "target_project_sdw_data_ing" {
+  project_id = "sdw-data-ing-3ef33c-e649"
+}
+
+# Remove roles/storage.objectViewer for serviceAccount:sa-dataflow-controller@sdw-data-ing-3ef33c-e649.iam.gserviceaccount.com
+resource "google_project_iam_member_remove" "remove_storage_object_viewer_for_dataflow_controller" {
+  project = data.google_project.target_project_sdw_data_ing.project_id
+  role    = "roles/storage.objectViewer"
+  member  = "serviceAccount:sa-dataflow-controller@sdw-data-ing-3ef33c-e649.iam.gserviceaccount.com"
+}
+
+# Add organizations/9454078371/roles/pamproberscustomrole for serviceAccount:sa-dataflow-controller@sdw-data-ing-3ef33c-e649.iam.gserviceaccount.com
+resource "google_project_iam_member" "add_pamprobers_custom_role_for_dataflow_controller" {
+  project = data.google_project.target_project_sdw_data_ing.project_id
+  role    = "organizations/9454078371/roles/pamproberscustomrole"
+  member  = "serviceAccount:sa-dataflow-controller@sdw-data-ing-3ef33c-e649.iam.gserviceaccount.com"
+}
