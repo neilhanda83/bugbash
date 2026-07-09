@@ -75,3 +75,18 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding updates for project "slz-secondary-customer"
+
+# Remove roles/integrations.apigeeIntegrationAdminRole for user:varunbhardwaj@google.com
+resource "google_project_iam_member_remove" "remove_apigee_integration_admin_role_for_varun" {
+  project = "slz-secondary-customer"
+  role    = "roles/integrations.apigeeIntegrationAdminRole"
+  member  = "user:varunbhardwaj@google.com"
+}
+
+# Add roles/integrations.apigeeIntegrationEditorRole for user:varunbhardwaj@google.com
+resource "google_project_iam_member" "add_apigee_integration_editor_role_for_varun" {
+  project = "slz-secondary-customer"
+  role    = "roles/integrations.apigeeIntegrationEditorRole"
+  member  = "user:varunbhardwaj@google.com"
+}
