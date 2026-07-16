@@ -75,3 +75,9 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove the 'roles/iam.serviceAccountTokenCreator' role for 'user:singhakan@google.com' from project 'manualiamregotesting'
+resource "google_project_iam_member_remove" "remove_singhakan_sa_token_creator" {
+  project = "manualiamregotesting"
+  role    = "roles/iam.serviceAccountTokenCreator"
+  member  = "user:singhakan@google.com"
+}
