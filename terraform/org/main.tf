@@ -75,3 +75,16 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove IAM binding for roles/securityposture.postureDeploymentsViewer for user:tiruveedhulap@google.com on project my-project-tp-412202
+resource "google_project_iam_member_remove" "remove_posture_deployments_viewer_tiruveedhulap" {
+  project = "my-project-tp-412202"
+  role    = "roles/securityposture.postureDeploymentsViewer"
+  member  = "user:tiruveedhulap@google.com"
+}
+
+# Remove IAM binding for roles/securityposture.postureEditor for user:tiruveedhulap@google.com on project my-project-tp-412202
+resource "google_project_iam_member_remove" "remove_posture_editor_tiruveedhulap" {
+  project = "my-project-tp-412202"
+  role    = "roles/securityposture.postureEditor"
+  member  = "user:tiruveedhulap@google.com"
+}
