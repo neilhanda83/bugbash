@@ -75,3 +75,33 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Bindings to remove for project "iamtestakanksha"
+resource "google_project_iam_member_remove" "remove_posture_editor_for_singhakan" {
+  project = "iamtestakanksha"
+  role    = "roles/securityposture.postureEditor"
+  member  = "user:singhakan@prod.google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_securitycenter_admin_viewer_for_singhakan" {
+  project = "iamtestakanksha"
+  role    = "roles/securitycenter.adminViewer"
+  member  = "user:singhakan@prod.google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_securityhealthanalytics_tester_for_singhakan" {
+  project = "iamtestakanksha"
+  role    = "roles/securitycenter.securityHealthAnalyticsCustomModulesTester"
+  member  = "user:singhakan@prod.google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_securitycenter_settings_admin_for_singhakan" {
+  project = "iamtestakanksha"
+  role    = "roles/securitycenter.settingsAdmin"
+  member  = "user:singhakan@prod.google.com"
+}
+
+resource "google_project_iam_member_remove" "remove_posture_deployments_viewer_for_singhakan" {
+  project = "iamtestakanksha"
+  role    = "roles/securityposture.postureDeploymentsViewer"
+  member  = "user:singhakan@prod.google.com"
+}
