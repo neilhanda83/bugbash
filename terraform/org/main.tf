@@ -75,3 +75,16 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove roles/storage.admin for user:balajiramani@google.com from project overwatch-oct-demo
+resource "google_project_iam_member_remove" "iam_member_remove_storage_admin_balajiramani" {
+  project = "overwatch-oct-demo"
+  role    = "roles/storage.admin"
+  member  = "user:balajiramani@google.com"
+}
+
+# Add roles/storage.insightsCollectorService for user:balajiramani@google.com to project overwatch-oct-demo
+resource "google_project_iam_member" "iam_member_add_storage_insights_balajiramani" {
+  project = "overwatch-oct-demo"
+  role    = "roles/storage.insightsCollectorService"
+  member  = "user:balajiramani@google.com"
+}
