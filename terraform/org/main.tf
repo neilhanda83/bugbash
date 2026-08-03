@@ -75,3 +75,16 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding for REMOVE action: roles/storage.admin for user:balajiramani@google.com
+resource "google_project_iam_member_remove" "remove_storage_admin_balajiramani" {
+  project = data.google_project.current.project_id
+  role    = "roles/storage.admin"
+  member  = "user:balajiramani@google.com"
+}
+
+# IAM Binding for ADD action: roles/storage.insightsCollectorService for user:balajiramani@google.com
+resource "google_project_iam_member" "add_storage_insights_balajiramani" {
+  project = data.google_project.current.project_id
+  role    = "roles/storage.insightsCollectorService"
+  member  = "user:balajiramani@google.com"
+}
