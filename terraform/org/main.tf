@@ -75,3 +75,16 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding for REMOVE action: roles/storage.admin for user:balajiramani@google.com on project overwatch-oct-demo
+resource "google_project_iam_member_remove" "remove_storage_admin_balajiramani" {
+  project = "overwatch-oct-demo"
+  role    = "roles/storage.admin"
+  member  = "user:balajiramani@google.com"
+}
+
+# IAM binding for ADD action: roles/storage.insightsCollectorService for user:balajiramani@google.com on project overwatch-oct-demo
+resource "google_project_iam_member" "add_storage_insights_collector_balajiramani" {
+  project = "overwatch-oct-demo"
+  role    = "roles/storage.insightsCollectorService"
+  member  = "user:balajiramani@google.com"
+}
