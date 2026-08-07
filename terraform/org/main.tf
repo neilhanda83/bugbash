@@ -75,3 +75,32 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding updates for user:tanyaprince.cymbal@gmail.com
+
+# REMOVE roles/resourcemanager.projectIamAdmin
+resource "google_project_iam_member_remove" "remove_project_iam_member_for_project_iam_admin" {
+  project = data.google_project.current.project_id
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "user:tanyaprince.cymbal@gmail.com"
+}
+
+# ADD organizations/9454078371/roles/CustomRole262
+resource "google_project_iam_member" "add_project_iam_member_for_custom_role_262" {
+  project = data.google_project.current.project_id
+  role    = "organizations/9454078371/roles/CustomRole262"
+  member  = "user:tanyaprince.cymbal@gmail.com"
+}
+
+# REMOVE roles/privilegedaccessmanager.admin
+resource "google_project_iam_member_remove" "remove_project_iam_member_for_pam_admin" {
+  project = data.google_project.current.project_id
+  role    = "roles/privilegedaccessmanager.admin"
+  member  = "user:tanyaprince.cymbal@gmail.com"
+}
+
+# ADD roles/privilegedaccessmanager.viewer
+resource "google_project_iam_member" "add_project_iam_member_for_pam_viewer" {
+  project = data.google_project.current.project_id
+  role    = "roles/privilegedaccessmanager.viewer"
+  member  = "user:tanyaprince.cymbal@gmail.com"
+}
