@@ -75,3 +75,18 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM Binding updates for project slz-e2e-drift-test
+
+# Remove roles/storage.admin for user:sivangisingh@google.com
+resource "google_project_iam_member_remove" "remove_storage_admin_sivangisingh" {
+  project = "slz-e2e-drift-test"
+  role    = "roles/storage.admin"
+  member  = "user:sivangisingh@google.com"
+}
+
+# Add roles/storage.insightsCollectorService for user:sivangisingh@google.com
+resource "google_project_iam_member" "add_storage_insights_collector_sivangisingh" {
+  project = "slz-e2e-drift-test"
+  role    = "roles/storage.insightsCollectorService"
+  member  = "user:sivangisingh@google.com"
+}
