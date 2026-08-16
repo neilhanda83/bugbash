@@ -75,3 +75,9 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove the 'roles/iam.serviceAccountAdmin' role for 'user:balajiramani@google.com'
+resource "google_project_iam_member_remove" "remove_service_account_admin_for_balajiramani" {
+  project = data.google_project.current.project_id
+  role    = "roles/iam.serviceAccountAdmin"
+  member  = "user:balajiramani@google.com"
+}
