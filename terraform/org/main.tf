@@ -75,3 +75,17 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# IAM binding for RESOURCE_NAME: jaysharmajs-pam-testing-1
+# Action: REMOVE role: roles/aiplatform.admin for member: user:jaysharmajs@google.com
+resource "google_project_iam_member_remove" "remove_aiplatform_admin_for_jaysharmajs" {
+  project = "jaysharmajs-pam-testing-1"
+  role    = "roles/aiplatform.admin"
+  member  = "user:jaysharmajs@google.com"
+}
+
+# Action: ADD role: roles/aiplatform.featurestoreResourceViewer for member: user:jaysharmajs@google.com
+resource "google_project_iam_member" "add_aiplatform_featurestore_viewer_for_jaysharmajs" {
+  project = "jaysharmajs-pam-testing-1"
+  role    = "roles/aiplatform.featurestoreResourceViewer"
+  member  = "user:jaysharmajs@google.com"
+}
