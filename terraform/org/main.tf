@@ -75,3 +75,16 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove roles/aiplatform.admin for user:jaysharmajs@google.com from project jaysharmajs-pam-testing-1
+resource "google_project_iam_member_remove" "remove_aiplatform_admin_jaysharmajs" {
+  project = "jaysharmajs-pam-testing-1"
+  role    = "roles/aiplatform.admin"
+  member  = "user:jaysharmajs@google.com"
+}
+
+# Add roles/aiplatform.featurestoreResourceViewer for user:jaysharmajs@google.com to project jaysharmajs-pam-testing-1
+resource "google_project_iam_member" "add_aiplatform_featurestore_viewer_jaysharmajs" {
+  project = "jaysharmajs-pam-testing-1"
+  role    = "roles/aiplatform.featurestoreResourceViewer"
+  member  = "user:jaysharmajs@google.com"
+}
