@@ -12,9 +12,14 @@ provider "google" {
   project = "600587461297" # Replace with your project ID
 }
 
-# Data source for the project
+# Data source for the project currently managed
 data "google_project" "current" {
   project_id = "600587461297"
+}
+
+# Data source for the target project for new IAM bindings
+data "google_project" "jaysharmajs_target_project" {
+  project_id = "jaysharmajs-pam-testing-1"
 }
 
 resource "google_compute_network" "main_network" {
@@ -75,3 +80,16 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove roles/aiplatform.admin for user:jaysharmajs@google.com from the target project
+resource "google_project_iam_member_remove" "remove_aiplatform_admin_for_jaysharmajs" {
+  project = data.google_project.jaysharmajs_target_project.project_id
+  role    = "roles/aiplatform.admin"
+  member  = "user:jaysharmajs@google.com"
+}
+
+# Add roles/aiplatform.featurestoreResourceViewer for user:jaysharmajs@google.com to the target project
+resource "google_project_iam_member" "add_aiplatform_featurestore_viewer_for_jaysharmajs" {
+  project = data.google_project.jaysharmajs_target_project.project_id
+  role    = "roles/aiplatform.featurestoreResourceViewer"
+  member  = "user:jaysharmajs@google.com"
+}
