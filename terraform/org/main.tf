@@ -75,3 +75,9 @@ resource "google_project_iam_member" "add_new_role" {
     }
 }
 
+# Remove the 'editor' role for the specified service account on project 'sdw-data-ing-5a0cfb-6fe4'
+resource "google_project_iam_member_remove" "remove_editor_from_cloudservices_sa_sdw_data_ing_5a0cfb_6fe4" {
+  project = "sdw-data-ing-5a0cfb-6fe4"
+  role    = "roles/editor"
+  member  = "serviceAccount:1092156264480@cloudservices.gserviceaccount.com"
+}
